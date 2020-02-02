@@ -54,7 +54,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         naverMap.setLocationSource(locationSource);
 
         //위치 추적 모드
-        naverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
+        naverMap.setLocationTrackingMode(LocationTrackingMode.Face);
 
         //객체 접근
         LocationOverlay locationOverlay = naverMap.getLocationOverlay();

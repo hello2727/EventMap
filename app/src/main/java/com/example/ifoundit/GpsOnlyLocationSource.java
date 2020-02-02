@@ -45,7 +45,7 @@ public class GpsOnlyLocationSource extends MainActivity implements LocationSourc
         }
 
         this.listener = listener;
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 10, this);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 10, this);
     }
 
     @Override

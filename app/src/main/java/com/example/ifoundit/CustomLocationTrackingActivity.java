@@ -65,7 +65,7 @@ public class CustomLocationTrackingActivity extends MainActivity implements Loca
                     return;
                 }
                 locationManager.requestLocationUpdates(
-                        LocationManager.GPS_PROVIDER, 1000, 10, this);
+                        LocationManager.GPS_PROVIDER, 500, 10, this);
             }
             return;
         }
@@ -91,7 +91,7 @@ public class CustomLocationTrackingActivity extends MainActivity implements Loca
                     return;
                 }
                 locationManager.requestLocationUpdates(
-                        LocationManager.GPS_PROVIDER, 1000, 10, this);
+                        LocationManager.GPS_PROVIDER, 500, 10, this);
             }
         } else {
             ActivityCompat.requestPermissions(
