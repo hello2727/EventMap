@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.PermissionChecker;
 import androidx.fragment.app.FragmentManager;
@@ -20,7 +21,7 @@ import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.overlay.LocationOverlay;
 
 //커스텀 위치 추적
-public class CustomLocationTrackingActivity extends MainActivity implements LocationListener {
+public class CustomLocationTrackingActivity extends AppCompatActivity implements LocationListener {
     private static final int PERMISSION_REQUEST_CODE = 100;
     private static final String[] PERMISSIONS = {
             Manifest.permission.ACCESS_FINE_LOCATION,

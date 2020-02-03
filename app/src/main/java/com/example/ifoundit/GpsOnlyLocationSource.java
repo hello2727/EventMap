@@ -16,7 +16,7 @@ import androidx.core.content.PermissionChecker;
 import com.naver.maps.map.LocationSource;
 
 //커스텀 위치 소스
-public class GpsOnlyLocationSource extends MainActivity implements LocationSource, LocationListener {
+public class GpsOnlyLocationSource implements LocationSource, LocationListener {
     @NonNull
     private final Context context;
     @Nullable
