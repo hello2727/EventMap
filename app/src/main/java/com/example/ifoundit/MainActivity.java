@@ -1,15 +1,9 @@
 package com.example.ifoundit;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.UiThread;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
-
-import android.app.Activity;
 import android.os.Bundle;
-import android.widget.Toast;
-
 import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.MapFragment;
 import com.naver.maps.map.NaverMap;
@@ -17,8 +11,6 @@ import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.UiSettings;
 import com.naver.maps.map.overlay.LocationOverlay;
 import com.naver.maps.map.util.FusedLocationSource;
-
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1000;
@@ -52,10 +44,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
+        //네이버 지도 SDK에 위치를 제공하는 인터페이스
         naverMap.setLocationSource(locationSource);
 
         //위치 추적 모드
-        naverMap.setLocationTrackingMode(LocationTrackingMode.Face);
+        naverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
 
         //객체 접근(위치 오버레이)
         LocationOverlay locationOverlay = naverMap.getLocationOverlay();

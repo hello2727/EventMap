@@ -35,7 +35,6 @@ public class CustomLocationTrackingActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         // ...
 
         FragmentManager fm = getSupportFragmentManager();
