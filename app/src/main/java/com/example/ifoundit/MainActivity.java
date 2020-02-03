@@ -14,6 +14,7 @@ import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.MapFragment;
 import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
+import com.naver.maps.map.UiSettings;
 import com.naver.maps.map.overlay.LocationOverlay;
 import com.naver.maps.map.util.FusedLocationSource;
 
@@ -56,9 +57,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         //위치 추적 모드
         naverMap.setLocationTrackingMode(LocationTrackingMode.Face);
 
-        //객체 접근
+        //객체 접근(위치 오버레이)
         LocationOverlay locationOverlay = naverMap.getLocationOverlay();
         locationOverlay.setVisible(true);
+        //객체 접근(현위치 버튼)
+        UiSettings uiSettings = naverMap.getUiSettings();
+        uiSettings.setLocationButtonEnabled(true);
+
         //원의 반경 지정
         locationOverlay.setCircleRadius(100);
     }
