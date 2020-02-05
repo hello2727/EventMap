@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ifoundit</string>
+    <string name="action_voice_rec">action voice rec</string>
 </resources>
