@@ -24,5 +24,5 @@ allprojects {
 ...
 <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
-            android:value="f607t6uv75"/>
+            android:value="{값}"/>
 ```
