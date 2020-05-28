@@ -6,6 +6,7 @@
 ```
 dependencies {
   ...
+  //네이버 맵 API
     implementation 'com.naver.maps:map-sdk:3.7.0'
     implementation 'com.google.android.gms:play-services-location:16.0.0'
     implementation 'com.github.arimorty:floatingsearchview:2.1.1'
@@ -16,6 +17,7 @@ dependencies {
 allprojects {
         ...
         maven {
+        //네이버 맵 API
             url 'https://navercorp.bintray.com/maps'
         }
 }
