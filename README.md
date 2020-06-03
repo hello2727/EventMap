@@ -1,8 +1,15 @@
 # 프로젝트명 : 찾았지오
 >내가 찾고자 하는 장소들을 검색하면 사용자 근처에서 찾아 알려주는 어플리케이션
 ## 1.결과물
+- 로딩 화면
 <div>
-  
+  <img width="200" src="https://user-images.githubusercontent.com/43267195/83619275-9f1ff200-a5c6-11ea-8164-d7e31303ac0b.jpg">
+</div>
+
+- 홈
+<div>
+  <img width="200" src="https://user-images.githubusercontent.com/43267195/83619354-b6f77600-a5c6-11ea-803c-3da4a4f00247.jpg">
+  <img width="200" src="">
 </div>
   
 ## 2.환경설정
