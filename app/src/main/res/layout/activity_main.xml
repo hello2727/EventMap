@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <fragment
-        android:id="@+id/fragment_map"
+        android:id="@+id/mapView"
         android:name="com.naver.maps.map.MapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
