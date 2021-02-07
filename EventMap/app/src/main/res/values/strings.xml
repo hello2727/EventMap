@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">EventMap</string>
+    <string name="setting_hamburger_button">hamburger_button</string>
 </resources>
