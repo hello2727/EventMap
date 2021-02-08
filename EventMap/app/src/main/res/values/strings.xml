@@ -2,6 +2,6 @@
     <string name="app_name">EventMap</string>
     <string name="setting_hamburger_button">hamburger_button</string>
     <string name="map_basic">일반지도</string>
-    <string name="satellite_map">위성지도</string>
-    <string name="terrain_map">지형도</string>
+    <string name="map_hybrid">위성지도</string>
+    <string name="map_terrain">지형도</string>
 </resources>

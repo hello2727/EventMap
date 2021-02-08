@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     View headerView;
 
     LinearLayout ll_basic, ll_satellite, ll_terrain;
-    TextView tv_basic, tv_satellite, tv_terrain;
+    TextView tv_basic, tv_hybrid, tv_terrain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         ll_satellite = headerView.findViewById(R.id.ll_satellite);
         ll_terrain = headerView.findViewById(R.id.ll_terrain);
         tv_basic = headerView.findViewById(R.id.tv_basic);
-        tv_satellite = headerView.findViewById(R.id.tv_satellite);
+        tv_hybrid = headerView.findViewById(R.id.tv_hybrid);
         tv_terrain = headerView.findViewById(R.id.tv_terrain);
     }
 
@@ -93,8 +93,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 if(mNaverMap.getMapType() == NaverMap.MapType.Basic){
                     tv_basic.setTextColor(Color.BLACK);
-                }else if(mNaverMap.getMapType() == NaverMap.MapType.Satellite){
-                    tv_satellite.setTextColor(Color.BLACK);
+                }else if(mNaverMap.getMapType() == NaverMap.MapType.Hybrid){
+                    tv_hybrid.setTextColor(Color.BLACK);
                 }else if(mNaverMap.getMapType() == NaverMap.MapType.Terrain){
                     tv_terrain.setTextColor(Color.BLACK);
                 }
@@ -107,17 +107,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 mNaverMap.setMapType(NaverMap.MapType.Basic);
 
                 tv_basic.setTextColor(Color.BLACK);
-                tv_satellite.setTextColor(Color.GRAY);
+                tv_hybrid.setTextColor(Color.GRAY);
                 tv_terrain.setTextColor(Color.GRAY);
             }
         });
         ll_satellite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mNaverMap.setMapType(NaverMap.MapType.Satellite);
+                mNaverMap.setMapType(NaverMap.MapType.Hybrid);
 
                 tv_basic.setTextColor(Color.GRAY);
-                tv_satellite.setTextColor(Color.BLACK);
+                tv_hybrid.setTextColor(Color.BLACK);
                 tv_terrain.setTextColor(Color.GRAY);
             }
         });
@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 mNaverMap.setMapType(NaverMap.MapType.Terrain);
 
                 tv_basic.setTextColor(Color.GRAY);
-                tv_satellite.setTextColor(Color.GRAY);
+                tv_hybrid.setTextColor(Color.GRAY);
                 tv_terrain.setTextColor(Color.BLACK);
             }
         });
