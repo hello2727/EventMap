@@ -2,7 +2,14 @@ package com.example.android.eventmap.view;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
+
 import com.example.android.eventmap.R;
 import com.naver.maps.map.MapView;
 import com.naver.maps.map.NaverMap;
@@ -11,6 +18,8 @@ import com.naver.maps.map.OnMapReadyCallback;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
     MapView mapView;
+    DrawerLayout main_drawerLayout;
+    ImageButton ibtn_navigationOpen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,10 +29,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         //NaverMap 객체 얻어오기
         getMapInstance();
+
+        ifClick();
     }
 
     void init(){
         mapView = findViewById(R.id.mapView);
+        main_drawerLayout = findViewById(R.id.main_drawerLayout);
+        ibtn_navigationOpen = findViewById(R.id.ibtn_navigationOpen);
     }
 
     void getMapInstance(){
@@ -47,5 +60,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
 
+    }
+
+    void ifClick(){
+        ibtn_navigationOpen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                main_drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
     }
 }
