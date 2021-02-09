@@ -15,8 +15,9 @@
         <ImageView
             android:id="@+id/iv_basic"
             android:layout_width="50dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginStart="20dp"
+            android:layout_gravity="center"
             android:background="@drawable/map_background"
             app:srcCompat="@drawable/map_basic"
             tools:ignore="ContentDescription" />
@@ -37,8 +38,9 @@
         <ImageView
             android:id="@+id/iv_satellite"
             android:layout_width="50dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginStart="20dp"
+            android:layout_gravity="center"
             android:background="@drawable/map_background"
             app:srcCompat="@drawable/map_satellite"
             tools:ignore="ContentDescription" />
@@ -59,8 +61,9 @@
         <ImageView
             android:id="@+id/iv_terrain"
             android:layout_width="50dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginStart="20dp"
+            android:layout_gravity="center"
             android:background="@drawable/map_background"
             app:srcCompat="@drawable/map_terrain"
             tools:ignore="ContentDescription" />

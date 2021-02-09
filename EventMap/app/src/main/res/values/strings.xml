@@ -4,4 +4,6 @@
     <string name="map_basic">일반지도</string>
     <string name="map_hybrid">위성지도</string>
     <string name="map_terrain">지형도</string>
+    <string name="traffic">교통정보</string>
+    <string name="transit">대중교통</string>
 </resources>

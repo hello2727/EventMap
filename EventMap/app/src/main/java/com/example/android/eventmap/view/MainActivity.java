@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     LinearLayout ll_basic, ll_satellite, ll_terrain;
     TextView tv_basic, tv_hybrid, tv_terrain;
+    ImageView iv_basic, iv_satellite, iv_terrain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +61,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         tv_basic = headerView.findViewById(R.id.tv_basic);
         tv_hybrid = headerView.findViewById(R.id.tv_hybrid);
         tv_terrain = headerView.findViewById(R.id.tv_terrain);
+        iv_basic = headerView.findViewById(R.id.iv_basic);
+        iv_basic.setClipToOutline(true);
+        iv_satellite = headerView.findViewById(R.id.iv_satellite);
+        iv_satellite.setClipToOutline(true);
+        iv_terrain = headerView.findViewById(R.id.iv_terrain);
+        iv_terrain.setClipToOutline(true);
     }
 
     void getMapInstance(){
