@@ -6,4 +6,7 @@
     <string name="map_terrain">지형도</string>
     <string name="traffic">교통정보</string>
     <string name="transit">대중교통</string>
+    <string name="bicycle">자전거</string>
+    <string name="mountain">등산로</string>
+    <string name="cadastral">지적편집도</string>
 </resources>

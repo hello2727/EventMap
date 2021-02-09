@@ -24,6 +24,8 @@ import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.NaverMapSdk;
 import com.naver.maps.map.OnMapReadyCallback;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback{
     MapView mapView;
     NaverMap mNaverMap;
@@ -32,9 +34,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     NavigationView navigationview_setting;
     View headerView;
 
-    LinearLayout ll_basic, ll_satellite, ll_terrain;
-    TextView tv_basic, tv_hybrid, tv_terrain;
+    LinearLayout ll_basic, ll_satellite, ll_terrain, ll_traffic, ll_transit, ll_bicycle, ll_mountain, ll_cadastral;
+    TextView tv_basic, tv_hybrid, tv_terrain, tv_traffic, tv_transit, tv_bicycle, tv_mountain, tv_cadastral;
     ImageView iv_basic, iv_satellite, iv_terrain;
+    int[] click_count = new int[5];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +70,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         iv_satellite.setClipToOutline(true);
         iv_terrain = headerView.findViewById(R.id.iv_terrain);
         iv_terrain.setClipToOutline(true);
+        ll_traffic = headerView.findViewById(R.id.ll_traffic);
+        ll_transit = headerView.findViewById(R.id.ll_transit);
+        ll_bicycle = headerView.findViewById(R.id.ll_bicycle);
+        ll_mountain = headerView.findViewById(R.id.ll_mountain);
+        ll_cadastral = headerView.findViewById(R.id.ll_cadastral);
+        tv_traffic = headerView.findViewById(R.id.tv_traffic);
+        tv_transit = headerView.findViewById(R.id.tv_transit);
+        tv_bicycle = headerView.findViewById(R.id.tv_bicycle);
+        tv_mountain = headerView.findViewById(R.id.tv_mountain);
+        tv_cadastral = headerView.findViewById(R.id.tv_cadastral);
     }
 
     void getMapInstance(){
@@ -137,6 +150,77 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 tv_basic.setTextColor(Color.GRAY);
                 tv_hybrid.setTextColor(Color.GRAY);
                 tv_terrain.setTextColor(Color.BLACK);
+            }
+        });
+
+        ll_traffic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(click_count[0] == 0){
+                    mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_TRAFFIC, true);
+                    tv_traffic.setTextColor(Color.BLACK);
+                    click_count[0]++;
+                }else if(click_count[0] == 1){
+                    mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_TRAFFIC, false);
+                    tv_traffic.setTextColor(Color.GRAY);
+                    click_count[0] = 0;
+                }
+            }
+        });
+        ll_transit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(click_count[1] == 0){
+                    mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_TRANSIT, true);
+                    tv_transit.setTextColor(Color.BLACK);
+                    click_count[1]++;
+                }else if(click_count[1] == 1){
+                    mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_TRANSIT, false);
+                    tv_transit.setTextColor(Color.GRAY);
+                    click_count[1] = 0;
+                }
+            }
+        });
+        ll_bicycle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(click_count[2] == 0){
+                    mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_BICYCLE, true);
+                    tv_bicycle.setTextColor(Color.BLACK);
+                    click_count[2]++;
+                }else if(click_count[2] == 1){
+                    mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_BICYCLE, false);
+                    tv_bicycle.setTextColor(Color.GRAY);
+                    click_count[2] = 0;
+                }
+            }
+        });
+        ll_mountain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(click_count[3] == 0){
+                    mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_MOUNTAIN, true);
+                    tv_mountain.setTextColor(Color.BLACK);
+                    click_count[3]++;
+                }else if(click_count[3] == 1){
+                    mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_MOUNTAIN, false);
+                    tv_mountain.setTextColor(Color.GRAY);
+                    click_count[3] = 0;
+                }
+            }
+        });
+        ll_cadastral.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(click_count[4] == 0){
+                    mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_CADASTRAL, true);
+                    tv_cadastral.setTextColor(Color.BLACK);
+                    click_count[4]++;
+                }else if(click_count[4] == 1){
+                    mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_CADASTRAL, false);
+                    tv_cadastral.setTextColor(Color.GRAY);
+                    click_count[4] = 0;
+                }
             }
         });
     }
