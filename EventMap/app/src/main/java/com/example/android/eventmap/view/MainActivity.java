@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onClick(View v) {
                 if(click_count[0] == 0){
                     mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_TRAFFIC, true);
-                    tv_traffic.setTextColor(Color.BLACK);
+                    tv_traffic.setTextColor(Color.BLUE);
                     click_count[0]++;
                 }else if(click_count[0] == 1){
                     mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_TRAFFIC, false);
@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onClick(View v) {
                 if(click_count[1] == 0){
                     mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_TRANSIT, true);
-                    tv_transit.setTextColor(Color.BLACK);
+                    tv_transit.setTextColor(Color.BLUE);
                     click_count[1]++;
                 }else if(click_count[1] == 1){
                     mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_TRANSIT, false);
@@ -186,7 +186,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onClick(View v) {
                 if(click_count[2] == 0){
                     mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_BICYCLE, true);
-                    tv_bicycle.setTextColor(Color.BLACK);
+                    tv_bicycle.setTextColor(Color.BLUE);
                     click_count[2]++;
                 }else if(click_count[2] == 1){
                     mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_BICYCLE, false);
@@ -200,7 +200,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onClick(View v) {
                 if(click_count[3] == 0){
                     mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_MOUNTAIN, true);
-                    tv_mountain.setTextColor(Color.BLACK);
+                    tv_mountain.setTextColor(Color.BLUE);
                     click_count[3]++;
                 }else if(click_count[3] == 1){
                     mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_MOUNTAIN, false);
@@ -214,7 +214,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onClick(View v) {
                 if(click_count[4] == 0){
                     mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_CADASTRAL, true);
-                    tv_cadastral.setTextColor(Color.BLACK);
+                    tv_cadastral.setTextColor(Color.BLUE);
                     click_count[4]++;
                 }else if(click_count[4] == 1){
                     mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_CADASTRAL, false);
