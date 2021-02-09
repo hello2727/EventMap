@@ -4,7 +4,7 @@
 
 개발환경
 -----------------
-* Android Java NaverMap_API lifecycle SharedPreferences
+* Android Java NaverMap_API SharedPreferences
 
 결과물
 -----------------
