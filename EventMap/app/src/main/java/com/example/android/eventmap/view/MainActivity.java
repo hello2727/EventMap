@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.eventmap.R;
+import com.example.android.eventmap.util.MySharedPreferences;
 import com.google.android.material.navigation.NavigationView;
 import com.naver.maps.map.MapView;
 import com.naver.maps.map.NaverMap;
@@ -38,6 +39,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     TextView tv_basic, tv_hybrid, tv_terrain, tv_traffic, tv_transit, tv_bicycle, tv_mountain, tv_cadastral, tv_indoor;
     ImageView iv_basic, iv_satellite, iv_terrain;
     int[] click_count = new int[6];
+
+    MySharedPreferences mySharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +85,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         tv_bicycle = headerView.findViewById(R.id.tv_bicycle);
         tv_mountain = headerView.findViewById(R.id.tv_mountain);
         tv_cadastral = headerView.findViewById(R.id.tv_cadastral);
+
+        mySharedPreferences = new MySharedPreferences(this);
     }
 
     void getMapInstance(){
@@ -106,6 +111,55 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
         mNaverMap = naverMap;
+
+        //지도세팅 정보 불러오기
+        calling_up_setting();
+    }
+
+    void calling_up_setting(){
+        //지도종류 세팅
+        if(mySharedPreferences.getBasic()){
+            mNaverMap.setMapType(NaverMap.MapType.Basic);
+            tv_basic.setTextColor(Color.BLACK);
+        }else if(mySharedPreferences.getSatellite()){
+            mNaverMap.setMapType(NaverMap.MapType.Hybrid);
+            tv_hybrid.setTextColor(Color.BLACK);
+        }else if(mySharedPreferences.getTerrain()){
+            mNaverMap.setMapType(NaverMap.MapType.Terrain);
+            tv_terrain.setTextColor(Color.BLACK);
+        }
+
+        //부가정보 세팅
+        if(mySharedPreferences.getIndoor()){
+            mNaverMap.setIndoorEnabled(true);
+            tv_indoor.setTextColor(Color.BLUE);
+            click_count[5]++;
+        }
+        if(mySharedPreferences.getTraffic()){
+            mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_TRAFFIC, true);
+            tv_traffic.setTextColor(Color.BLUE);
+            click_count[0]++;
+        }
+        if(mySharedPreferences.getTransit()){
+            mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_TRANSIT, true);
+            tv_transit.setTextColor(Color.BLUE);
+            click_count[1]++;
+        }
+        if(mySharedPreferences.getBicycle()){
+            mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_BICYCLE, true);
+            tv_bicycle.setTextColor(Color.BLUE);
+            click_count[2]++;
+        }
+        if(mySharedPreferences.getMountain()){
+            mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_MOUNTAIN, true);
+            tv_mountain.setTextColor(Color.BLUE);
+            click_count[3]++;
+        }
+        if(mySharedPreferences.getCadastral()){
+            mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_CADASTRAL, true);
+            tv_cadastral.setTextColor(Color.BLUE);
+            click_count[4]++;
+        }
     }
 
     void ifClick(){
@@ -132,6 +186,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 tv_basic.setTextColor(Color.BLACK);
                 tv_hybrid.setTextColor(Color.GRAY);
                 tv_terrain.setTextColor(Color.GRAY);
+
+                mySharedPreferences.setBasic(true);
+                mySharedPreferences.setSatellite(false);
+                mySharedPreferences.setTerrain(false);
             }
         });
         ll_satellite.setOnClickListener(new View.OnClickListener() {
@@ -142,6 +200,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 tv_basic.setTextColor(Color.GRAY);
                 tv_hybrid.setTextColor(Color.BLACK);
                 tv_terrain.setTextColor(Color.GRAY);
+
+                mySharedPreferences.setBasic(false);
+                mySharedPreferences.setSatellite(true);
+                mySharedPreferences.setTerrain(false);
             }
         });
         ll_terrain.setOnClickListener(new View.OnClickListener() {
@@ -152,6 +214,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 tv_basic.setTextColor(Color.GRAY);
                 tv_hybrid.setTextColor(Color.GRAY);
                 tv_terrain.setTextColor(Color.BLACK);
+
+                mySharedPreferences.setBasic(false);
+                mySharedPreferences.setSatellite(false);
+                mySharedPreferences.setTerrain(true);
             }
         });
 
@@ -162,10 +228,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     mNaverMap.setIndoorEnabled(true);
                     tv_indoor.setTextColor(Color.BLUE);
                     click_count[5]++;
+
+                    mySharedPreferences.setIndoor(true);
                 }else if(click_count[5] == 1){
                     mNaverMap.setIndoorEnabled(false);
                     tv_indoor.setTextColor(Color.GRAY);
                     click_count[5] = 0;
+
+                    mySharedPreferences.setIndoor(false);
                 }
             }
         });
@@ -177,10 +247,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_TRAFFIC, true);
                     tv_traffic.setTextColor(Color.BLUE);
                     click_count[0]++;
+
+                    mySharedPreferences.setTraffic(true);
                 }else if(click_count[0] == 1){
                     mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_TRAFFIC, false);
                     tv_traffic.setTextColor(Color.GRAY);
                     click_count[0] = 0;
+
+                    mySharedPreferences.setTraffic(false);
                 }
             }
         });
@@ -191,10 +265,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_TRANSIT, true);
                     tv_transit.setTextColor(Color.BLUE);
                     click_count[1]++;
+
+                    mySharedPreferences.setTransit(true);
                 }else if(click_count[1] == 1){
                     mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_TRANSIT, false);
                     tv_transit.setTextColor(Color.GRAY);
                     click_count[1] = 0;
+
+                    mySharedPreferences.setTransit(false);
                 }
             }
         });
@@ -205,10 +283,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_BICYCLE, true);
                     tv_bicycle.setTextColor(Color.BLUE);
                     click_count[2]++;
+
+                    mySharedPreferences.setBicycle(true);
                 }else if(click_count[2] == 1){
                     mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_BICYCLE, false);
                     tv_bicycle.setTextColor(Color.GRAY);
                     click_count[2] = 0;
+
+                    mySharedPreferences.setBicycle(false);
                 }
             }
         });
@@ -219,10 +301,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_MOUNTAIN, true);
                     tv_mountain.setTextColor(Color.BLUE);
                     click_count[3]++;
+
+                    mySharedPreferences.setMountain(true);
                 }else if(click_count[3] == 1){
                     mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_MOUNTAIN, false);
                     tv_mountain.setTextColor(Color.GRAY);
                     click_count[3] = 0;
+
+                    mySharedPreferences.setMountain(false);
                 }
             }
         });
@@ -233,12 +319,21 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_CADASTRAL, true);
                     tv_cadastral.setTextColor(Color.BLUE);
                     click_count[4]++;
+
+                    mySharedPreferences.setCadastral(true);
                 }else if(click_count[4] == 1){
                     mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_CADASTRAL, false);
                     tv_cadastral.setTextColor(Color.GRAY);
                     click_count[4] = 0;
+
+                    mySharedPreferences.setCadastral(false);
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }
