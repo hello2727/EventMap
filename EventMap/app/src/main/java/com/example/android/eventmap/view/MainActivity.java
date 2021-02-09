@@ -9,6 +9,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -25,7 +26,9 @@ import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.NaverMapSdk;
 import com.naver.maps.map.OnMapReadyCallback;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback{
     MapView mapView;
@@ -36,9 +39,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     View headerView;
     long backBtnTime = 0;
 
-    LinearLayout ll_basic, ll_satellite, ll_terrain, ll_traffic, ll_transit, ll_bicycle, ll_mountain, ll_cadastral, ll_indoor;
-    TextView tv_basic, tv_hybrid, tv_terrain, tv_traffic, tv_transit, tv_bicycle, tv_mountain, tv_cadastral, tv_indoor;
-    ImageView iv_basic, iv_satellite, iv_terrain;
+    LinearLayout ll_basic, ll_satellite, ll_terrain, ll_navi, ll_traffic, ll_transit, ll_bicycle, ll_mountain, ll_cadastral, ll_indoor;
+    TextView tv_basic, tv_hybrid, tv_terrain, tv_navi, tv_traffic, tv_transit, tv_bicycle, tv_mountain, tv_cadastral, tv_indoor;
+    ImageView iv_basic, iv_satellite, iv_terrain, iv_navi;
     int[] click_count = new int[6];
 
     MySharedPreferences mySharedPreferences;
@@ -65,15 +68,19 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         ll_basic = headerView.findViewById(R.id.ll_basic);
         ll_satellite = headerView.findViewById(R.id.ll_satellite);
         ll_terrain = headerView.findViewById(R.id.ll_terrain);
+        ll_navi = headerView.findViewById(R.id.ll_navi);
         tv_basic = headerView.findViewById(R.id.tv_basic);
         tv_hybrid = headerView.findViewById(R.id.tv_hybrid);
         tv_terrain = headerView.findViewById(R.id.tv_terrain);
+        tv_navi = headerView.findViewById(R.id.tv_navi);
         iv_basic = headerView.findViewById(R.id.iv_basic);
         iv_basic.setClipToOutline(true);
         iv_satellite = headerView.findViewById(R.id.iv_satellite);
         iv_satellite.setClipToOutline(true);
         iv_terrain = headerView.findViewById(R.id.iv_terrain);
         iv_terrain.setClipToOutline(true);
+        iv_navi = headerView.findViewById(R.id.iv_navi);
+        iv_navi.setClipToOutline(true);
         ll_indoor = headerView.findViewById(R.id.ll_indoor);
         ll_traffic = headerView.findViewById(R.id.ll_traffic);
         ll_transit = headerView.findViewById(R.id.ll_transit);
@@ -115,6 +122,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         //지도세팅 정보 불러오기
         calling_up_setting();
+        //야간모드 설정하기(낮에는 밝은지도, 밤에는 어두운 지도) -> 내비게이션 지도에만 적용됨.
+        setNightMode();
     }
 
     void calling_up_setting(){
@@ -128,6 +137,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }else if(mySharedPreferences.getTerrain()){
             mNaverMap.setMapType(NaverMap.MapType.Terrain);
             tv_terrain.setTextColor(Color.BLACK);
+        }else if(mySharedPreferences.getNavi()){
+            mNaverMap.setMapType(NaverMap.MapType.Navi);
+            tv_navi.setTextColor(Color.BLACK);
         }
 
         //부가정보 세팅
@@ -163,6 +175,22 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
+    void setNightMode(){
+        long curTime = System.currentTimeMillis();;
+        Date date = new Date(curTime);
+        SimpleDateFormat format = new SimpleDateFormat("HH");
+        String curHour = format.format(date);
+        int hour = Integer.parseInt(curHour);
+
+        Log.d("현재시간", Integer.toString(hour));
+
+        if(06 < hour && hour < 21){
+            mNaverMap.setNightModeEnabled(false);
+        }else{
+            mNaverMap.setNightModeEnabled(true);
+        }
+    }
+
     void ifClick(){
         ibtn_navigationOpen.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,6 +203,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     tv_hybrid.setTextColor(Color.BLACK);
                 }else if(mNaverMap.getMapType() == NaverMap.MapType.Terrain){
                     tv_terrain.setTextColor(Color.BLACK);
+                }else if(mNaverMap.getMapType() == NaverMap.MapType.Navi){
+                    tv_navi.setTextColor(Color.BLACK);
                 }
             }
         });
@@ -187,10 +217,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 tv_basic.setTextColor(Color.BLACK);
                 tv_hybrid.setTextColor(Color.GRAY);
                 tv_terrain.setTextColor(Color.GRAY);
+                tv_navi.setTextColor(Color.GRAY);
 
                 mySharedPreferences.setBasic(true);
                 mySharedPreferences.setSatellite(false);
                 mySharedPreferences.setTerrain(false);
+                mySharedPreferences.setNavi(false);
             }
         });
         ll_satellite.setOnClickListener(new View.OnClickListener() {
@@ -201,10 +233,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 tv_basic.setTextColor(Color.GRAY);
                 tv_hybrid.setTextColor(Color.BLACK);
                 tv_terrain.setTextColor(Color.GRAY);
+                tv_navi.setTextColor(Color.GRAY);
 
                 mySharedPreferences.setBasic(false);
                 mySharedPreferences.setSatellite(true);
                 mySharedPreferences.setTerrain(false);
+                mySharedPreferences.setNavi(false);
             }
         });
         ll_terrain.setOnClickListener(new View.OnClickListener() {
@@ -215,10 +249,28 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 tv_basic.setTextColor(Color.GRAY);
                 tv_hybrid.setTextColor(Color.GRAY);
                 tv_terrain.setTextColor(Color.BLACK);
+                tv_navi.setTextColor(Color.GRAY);
 
                 mySharedPreferences.setBasic(false);
                 mySharedPreferences.setSatellite(false);
                 mySharedPreferences.setTerrain(true);
+                mySharedPreferences.setNavi(false);
+            }
+        });
+        ll_navi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mNaverMap.setMapType(NaverMap.MapType.Navi);
+
+                tv_basic.setTextColor(Color.GRAY);
+                tv_hybrid.setTextColor(Color.GRAY);
+                tv_terrain.setTextColor(Color.GRAY);
+                tv_navi.setTextColor(Color.BLACK);
+
+                mySharedPreferences.setBasic(false);
+                mySharedPreferences.setSatellite(false);
+                mySharedPreferences.setTerrain(false);
+                mySharedPreferences.setNavi(true);
             }
         });
 

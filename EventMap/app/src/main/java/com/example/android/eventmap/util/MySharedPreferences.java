@@ -29,6 +29,10 @@ public class MySharedPreferences {
         editor.putBoolean("terrain", b);
         editor.commit();
     }
+    public void setNavi(Boolean b){
+        editor.putBoolean("navi", b);
+        editor.commit();
+    }
 
     public void setIndoor(Boolean b){
         editor.putBoolean("indoor", b);
@@ -64,6 +68,9 @@ public class MySharedPreferences {
     }
     public boolean getTerrain(){
         return spf.getBoolean("terrain", false);
+    }
+    public boolean getNavi(){
+        return spf.getBoolean("navi", false);
     }
 
     public boolean getIndoor(){
