@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     ImageButton ibtn_navigationOpen;
     NavigationView navigationview_setting;
     View headerView;
+    long backBtnTime = 0;
 
     LinearLayout ll_basic, ll_satellite, ll_terrain, ll_traffic, ll_transit, ll_bicycle, ll_mountain, ll_cadastral, ll_indoor;
     TextView tv_basic, tv_hybrid, tv_terrain, tv_traffic, tv_transit, tv_bicycle, tv_mountain, tv_cadastral, tv_indoor;
@@ -334,6 +335,19 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        long curTime = System.currentTimeMillis();
+        long gapTime = curTime - backBtnTime;
+
+        if(main_drawerLayout.isDrawerOpen(navigationview_setting)){
+            main_drawerLayout.closeDrawer(GravityCompat.START);
+        }else{
+            //두번 눌러 뒤로가기 종료
+            if(0 <= gapTime && 2000 >= gapTime){
+                super.onBackPressed();
+            }else{
+                backBtnTime = curTime;
+                Toast.makeText(this, "버튼을 한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }
