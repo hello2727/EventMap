@@ -6,7 +6,9 @@
 -----------------
 * Android Java NaverMap_API lifecycle SharedPreferences
 
-## 1.결과물
+결과물
+-----------------
+### 전체적인 구성
 - 로딩 화면
 
 - 홈
@@ -16,8 +18,9 @@
   <img width="200" src="https://user-images.githubusercontent.com/43267195/83619751-47ce5180-a5c7-11ea-9978-aafee1f1607d.jpg">
 </div>
   
-## 2.환경설정
-### 2-1.build.gradle
+### 환경설정
+-----------------
+- build.gradle(module)
 ```
 dependencies {
   ...
@@ -25,7 +28,7 @@ dependencies {
     implementation 'com.naver.maps:map-sdk:3.10.2'
 }
 ```
-### 2-2.build.gradle(Project)
+- build.gradle(Project)
 ```
 allprojects {
         ...
@@ -34,7 +37,7 @@ allprojects {
         }
 }
 ```
-### 2-3.manifest
+- manifest
 ```
 ...
 <meta-data
