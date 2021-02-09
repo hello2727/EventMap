@@ -9,4 +9,5 @@
     <string name="bicycle">자전거</string>
     <string name="mountain">등산로</string>
     <string name="cadastral">지적편집도</string>
+    <string name="indoor">실내지도</string>
 </resources>

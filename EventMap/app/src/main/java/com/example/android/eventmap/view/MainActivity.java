@@ -34,10 +34,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     NavigationView navigationview_setting;
     View headerView;
 
-    LinearLayout ll_basic, ll_satellite, ll_terrain, ll_traffic, ll_transit, ll_bicycle, ll_mountain, ll_cadastral;
-    TextView tv_basic, tv_hybrid, tv_terrain, tv_traffic, tv_transit, tv_bicycle, tv_mountain, tv_cadastral;
+    LinearLayout ll_basic, ll_satellite, ll_terrain, ll_traffic, ll_transit, ll_bicycle, ll_mountain, ll_cadastral, ll_indoor;
+    TextView tv_basic, tv_hybrid, tv_terrain, tv_traffic, tv_transit, tv_bicycle, tv_mountain, tv_cadastral, tv_indoor;
     ImageView iv_basic, iv_satellite, iv_terrain;
-    int[] click_count = new int[5];
+    int[] click_count = new int[6];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,11 +70,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         iv_satellite.setClipToOutline(true);
         iv_terrain = headerView.findViewById(R.id.iv_terrain);
         iv_terrain.setClipToOutline(true);
+        ll_indoor = headerView.findViewById(R.id.ll_indoor);
         ll_traffic = headerView.findViewById(R.id.ll_traffic);
         ll_transit = headerView.findViewById(R.id.ll_transit);
         ll_bicycle = headerView.findViewById(R.id.ll_bicycle);
         ll_mountain = headerView.findViewById(R.id.ll_mountain);
         ll_cadastral = headerView.findViewById(R.id.ll_cadastral);
+        tv_indoor = headerView.findViewById(R.id.tv_indoor);
         tv_traffic = headerView.findViewById(R.id.tv_traffic);
         tv_transit = headerView.findViewById(R.id.tv_transit);
         tv_bicycle = headerView.findViewById(R.id.tv_bicycle);
@@ -150,6 +152,21 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 tv_basic.setTextColor(Color.GRAY);
                 tv_hybrid.setTextColor(Color.GRAY);
                 tv_terrain.setTextColor(Color.BLACK);
+            }
+        });
+
+        ll_indoor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(click_count[5] == 0){
+                    mNaverMap.setIndoorEnabled(true);
+                    tv_indoor.setTextColor(Color.BLUE);
+                    click_count[5]++;
+                }else if(click_count[5] == 1){
+                    mNaverMap.setIndoorEnabled(false);
+                    tv_indoor.setTextColor(Color.GRAY);
+                    click_count[5] = 0;
+                }
             }
         });
 
