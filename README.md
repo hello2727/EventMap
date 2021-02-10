@@ -19,7 +19,6 @@
 </div>
   
 ### 환경설정
------------------
 - build.gradle(module)
 ```
 dependencies {
