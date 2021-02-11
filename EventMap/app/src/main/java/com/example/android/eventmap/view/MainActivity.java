@@ -21,10 +21,13 @@ import android.widget.Toast;
 import com.example.android.eventmap.R;
 import com.example.android.eventmap.util.MySharedPreferences;
 import com.google.android.material.navigation.NavigationView;
+import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.MapView;
 import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.NaverMapSdk;
 import com.naver.maps.map.OnMapReadyCallback;
+import com.naver.maps.map.UiSettings;
+import com.naver.maps.map.util.FusedLocationSource;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,6 +36,8 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback{
     MapView mapView;
     NaverMap mNaverMap;
+    FusedLocationSource locationSource;
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1000;
     DrawerLayout main_drawerLayout;
     ImageButton ibtn_navigationOpen;
     NavigationView navigationview_setting;
@@ -95,6 +100,19 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         tv_cadastral = headerView.findViewById(R.id.tv_cadastral);
 
         mySharedPreferences = new MySharedPreferences(this);
+
+        locationSource = new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if(locationSource.onRequestPermissionsResult(requestCode, permissions, grantResults)){
+            if(!locationSource.isActivated()){ //권한 거부됨
+                mNaverMap.setLocationTrackingMode(LocationTrackingMode.None);
+            }
+            return;
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     void getMapInstance(){
@@ -124,6 +142,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         calling_up_setting();
         //야간모드 설정하기(낮에는 밝은지도, 밤에는 어두운 지도) -> 내비게이션 지도에만 적용됨.
         setNightMode();
+        //UI 이벤트 설정하기
+        setUiEvent();
     }
 
     void calling_up_setting(){
@@ -189,6 +209,19 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }else{
             mNaverMap.setNightModeEnabled(true);
         }
+    }
+
+    void setUiEvent(){
+        UiSettings uiSettings = mNaverMap.getUiSettings();
+        //현위치버튼(위치추적)
+        uiSettings.setLocationButtonEnabled(true);
+        mNaverMap.setLocationSource(locationSource);
+        mNaverMap.setLocationTrackingMode(LocationTrackingMode.NoFollow);
+
+        //롱클릭시 지점 좌표 정보 표시
+        mNaverMap.setOnMapLongClickListener((point, coord) ->
+                Toast.makeText(this, coord.latitude + ", " + coord.longitude, Toast.LENGTH_SHORT).show()
+        );
     }
 
     void ifClick(){
