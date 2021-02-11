@@ -6,8 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -33,7 +38,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback{
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, SensorEventListener{
     MapView mapView;
     NaverMap mNaverMap;
     FusedLocationSource locationSource;
@@ -50,6 +55,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     int[] click_count = new int[6];
 
     MySharedPreferences mySharedPreferences;
+
+    SensorManager mSensorManager;
+    Sensor mAccelerometer;
+    Sensor mMagnetometer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +111,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         mySharedPreferences = new MySharedPreferences(this);
 
         locationSource = new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
+        mSensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
+        mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mMagnetometer = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
     }
 
     @Override
@@ -216,7 +228,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         //현위치버튼(위치추적)
         uiSettings.setLocationButtonEnabled(true);
         mNaverMap.setLocationSource(locationSource);
-        mNaverMap.setLocationTrackingMode(LocationTrackingMode.NoFollow);
+        mNaverMap.setLocationTrackingMode(LocationTrackingMode.Face);
 
         //롱클릭시 지점 좌표 정보 표시
         mNaverMap.setOnMapLongClickListener((point, coord) ->
@@ -416,6 +428,31 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }
             }
         });
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        // Get readings from accelerometer and magnetometer. To simplify calculations,
+        // consider storing these readings as unit vectors.
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        // Do something here if sensor accuracy changes.
+        // You must implement this callback in your code
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_GAME);
+        mSensorManager.registerListener(this, mMagnetometer, SensorManager.SENSOR_DELAY_GAME);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mSensorManager.unregisterListener(this);
     }
 
     @Override
