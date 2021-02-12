@@ -59,6 +59,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     SensorManager mSensorManager;
     Sensor mAccelerometer;
     Sensor mMagnetometer;
+    float[] mLastAccelerometer = new float[3];
+    float[] mLastMagnetometer = new float[3];
+    boolean mLastAccelerometerSet = false;
+    boolean mLastMagnetometerSet = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -434,6 +438,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onSensorChanged(SensorEvent event) {
         // Get readings from accelerometer and magnetometer. To simplify calculations,
         // consider storing these readings as unit vectors.
+        if(event.sensor == mAccelerometer){
+            System.arraycopy(event.values, 0, mLastAccelerometer, 0, event.values.length);
+            mLastAccelerometerSet = true;
+        }else if(event.sensor == mMagnetometer){
+            System.arraycopy(event.values, 0, mLastMagnetometer, 0, event.values.length);
+            mLastMagnetometerSet = true;
+        }
+
     }
 
     @Override
