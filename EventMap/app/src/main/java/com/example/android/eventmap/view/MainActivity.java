@@ -17,6 +17,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -63,6 +65,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     float[] mLastMagnetometer = new float[3];
     boolean mLastAccelerometerSet = false;
     boolean mLastMagnetometerSet = false;
+    float[] mR = new float[9];
+    float[] mOrientation = new float[3];
+    float mCurrentDegree = 0f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -438,6 +443,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onSensorChanged(SensorEvent event) {
         // Get readings from accelerometer and magnetometer. To simplify calculations,
         // consider storing these readings as unit vectors.
+        //가속도센서와 자기장센거 가져오기
         if(event.sensor == mAccelerometer){
             System.arraycopy(event.values, 0, mLastAccelerometer, 0, event.values.length);
             mLastAccelerometerSet = true;
@@ -445,7 +451,19 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             System.arraycopy(event.values, 0, mLastMagnetometer, 0, event.values.length);
             mLastMagnetometerSet = true;
         }
-
+        if(mLastAccelerometerSet && mLastMagnetometerSet){
+            SensorManager.getRotationMatrix(mR, null, mLastAccelerometer, mLastMagnetometer);
+            float azimuthinDegrees = (int)(Math.toDegrees(SensorManager.getOrientation(mR, mOrientation)[0]) + 360) % 360;
+//            RotateAnimation ra = new RotateAnimation(
+//                    mCurrentDegree,
+//                    azimuthinDegrees,
+//                    Animation.RELATIVE_TO_SELF, 0.5f,
+//                    Animation.RELATIVE_TO_SELF, 0.5f
+//            );
+//            ra.setDuration(200);
+//            ra.setFillAfter(true);
+//            mCurrentDegree = -azimuthinDegrees;
+        }
     }
 
     @Override
