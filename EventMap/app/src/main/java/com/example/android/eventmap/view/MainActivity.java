@@ -1,18 +1,23 @@
 package com.example.android.eventmap.view;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -27,20 +32,28 @@ import android.widget.Toast;
 
 import com.example.android.eventmap.R;
 import com.example.android.eventmap.util.MySharedPreferences;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
+import com.naver.maps.geometry.LatLng;
+import com.naver.maps.map.CameraPosition;
+import com.naver.maps.map.LocationSource;
 import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.MapView;
 import com.naver.maps.map.NaverMap;
+import com.naver.maps.map.NaverMapOptions;
 import com.naver.maps.map.NaverMapSdk;
 import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.UiSettings;
+import com.naver.maps.map.overlay.LocationOverlay;
 import com.naver.maps.map.util.FusedLocationSource;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, SensorEventListener{
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, SensorEventListener {
     MapView mapView;
     NaverMap mNaverMap;
     FusedLocationSource locationSource;
@@ -81,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         ifClick();
     }
 
-    void init(){
+    void init() {
         mapView = findViewById(R.id.mapView);
         main_drawerLayout = findViewById(R.id.main_drawerLayout);
         ibtn_navigationOpen = findViewById(R.id.ibtn_navigationOpen);
@@ -120,17 +133,18 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         mySharedPreferences = new MySharedPreferences(this);
 
         locationSource = new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
-        mSensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mMagnetometer = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if(locationSource.onRequestPermissionsResult(requestCode, permissions, grantResults)){
-            if(!locationSource.isActivated()){ //권한 거부됨
+        if (locationSource.onRequestPermissionsResult(requestCode, permissions, grantResults)) {
+            if (!locationSource.isActivated()) { //권한 거부됨
                 mNaverMap.setLocationTrackingMode(LocationTrackingMode.None);
             }
+
             return;
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -237,7 +251,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         //현위치버튼(위치추적)
         uiSettings.setLocationButtonEnabled(true);
         mNaverMap.setLocationSource(locationSource);
-        mNaverMap.setLocationTrackingMode(LocationTrackingMode.Face);
+        mNaverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
+
+        //카메라 변경 이벤트를 받는 경우(베어링 회전 시도)
+        mNaverMap.addOnCameraChangeListener((reason, animated) -> {
+            CameraPosition cameraPosition = mNaverMap.getCameraPosition();
+
+            Toast.makeText(this, cameraPosition.bearing+","+mCurrentDegree, Toast.LENGTH_SHORT).show();
+        });
 
         //롱클릭시 지점 좌표 정보 표시
         mNaverMap.setOnMapLongClickListener((point, coord) ->
@@ -462,7 +483,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 //            );
 //            ra.setDuration(200);
 //            ra.setFillAfter(true);
-//            mCurrentDegree = -azimuthinDegrees;
+            mCurrentDegree = -azimuthinDegrees;
         }
     }
 
