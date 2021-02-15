@@ -53,7 +53,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, SensorEventListener {
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
     MapView mapView;
     NaverMap mNaverMap;
     FusedLocationSource locationSource;
@@ -70,17 +70,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     int[] click_count = new int[6];
 
     MySharedPreferences mySharedPreferences;
-
-    SensorManager mSensorManager;
-    Sensor mAccelerometer;
-    Sensor mMagnetometer;
-    float[] mLastAccelerometer = new float[3];
-    float[] mLastMagnetometer = new float[3];
-    boolean mLastAccelerometerSet = false;
-    boolean mLastMagnetometerSet = false;
-    float[] mR = new float[9];
-    float[] mOrientation = new float[3];
-    float mCurrentDegree = 0f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,9 +122,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         mySharedPreferences = new MySharedPreferences(this);
 
         locationSource = new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
-        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        mMagnetometer = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
     }
 
     @Override
@@ -253,17 +239,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         mNaverMap.setLocationSource(locationSource);
         mNaverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
 
-        //카메라 변경 이벤트를 받는 경우(베어링 회전 시도)
-        mNaverMap.addOnCameraChangeListener((reason, animated) -> {
-            CameraPosition cameraPosition = mNaverMap.getCameraPosition();
-
-            Toast.makeText(this, cameraPosition.bearing+","+mCurrentDegree, Toast.LENGTH_SHORT).show();
+        //위치트래킹 기능 on
+        mNaverMap.addOnOptionChangeListener(() -> {
+            LocationTrackingMode mode = mNaverMap.getLocationTrackingMode();
+            locationSource.setCompassEnabled(mode == LocationTrackingMode.Follow || mode == LocationTrackingMode.Face);
         });
-
-        //롱클릭시 지점 좌표 정보 표시
-        mNaverMap.setOnMapLongClickListener((point, coord) ->
-                Toast.makeText(this, coord.latitude + ", " + coord.longitude, Toast.LENGTH_SHORT).show()
-        );
     }
 
     void ifClick(){
@@ -458,52 +438,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }
             }
         });
-    }
-
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-        // Get readings from accelerometer and magnetometer. To simplify calculations,
-        // consider storing these readings as unit vectors.
-        //가속도센서와 자기장센거 가져오기
-        if(event.sensor == mAccelerometer){
-            System.arraycopy(event.values, 0, mLastAccelerometer, 0, event.values.length);
-            mLastAccelerometerSet = true;
-        }else if(event.sensor == mMagnetometer){
-            System.arraycopy(event.values, 0, mLastMagnetometer, 0, event.values.length);
-            mLastMagnetometerSet = true;
-        }
-        if(mLastAccelerometerSet && mLastMagnetometerSet){
-            SensorManager.getRotationMatrix(mR, null, mLastAccelerometer, mLastMagnetometer);
-            float azimuthinDegrees = (int)(Math.toDegrees(SensorManager.getOrientation(mR, mOrientation)[0]) + 360) % 360;
-//            RotateAnimation ra = new RotateAnimation(
-//                    mCurrentDegree,
-//                    azimuthinDegrees,
-//                    Animation.RELATIVE_TO_SELF, 0.5f,
-//                    Animation.RELATIVE_TO_SELF, 0.5f
-//            );
-//            ra.setDuration(200);
-//            ra.setFillAfter(true);
-            mCurrentDegree = -azimuthinDegrees;
-        }
-    }
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-        // Do something here if sensor accuracy changes.
-        // You must implement this callback in your code
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_GAME);
-        mSensorManager.registerListener(this, mMagnetometer, SensorManager.SENSOR_DELAY_GAME);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        mSensorManager.unregisterListener(this);
     }
 
     @Override
