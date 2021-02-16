@@ -23,8 +23,13 @@
 ```
 dependencies {
   ...
-  // 네이버 지도 SDK
+    // 네이버 지도 SDK
     implementation 'com.naver.maps:map-sdk:3.10.2'
+    //내장 위치 추적 기능 (FusedLocation)
+    implementation 'com.google.android.gms:play-services-location:16.0.0'
+    // openAPI 정보 얻어오기 (retrofit2 + gson)
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
 }
 ```
 - build.gradle(Project)
@@ -39,7 +44,12 @@ allprojects {
 - manifest
 ```
 ...
-<meta-data
-            android:name="com.naver.maps.map.CLIENT_ID"
-            android:value="{값}"/>
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+<uses-permission android:name="android.permission.INTERNET" />
+
+<application
+  <meta-data
+        android:name="com.naver.maps.map.CLIENT_ID"
+        android:value="{값}"/>
+</application>        
 ```
