@@ -25,7 +25,8 @@
 - 지도에 옵션 적용 (일반지도, 위성지도, 지형도, 내비게이션지도, 실내지도, 교통정보, 대중교통, 자전거, 등산로, 지적편집도)
 <div>
   <img width="200" src="https://user-images.githubusercontent.com/43267195/108028514-4ff3f180-706f-11eb-9397-0584cd0972ad.jpg">
-  <img width="200" src="https://user-images.githubusercontent.com/43267195/108028514-4ff3f180-706f-11eb-9397-0584cd0972ad.jpg">
+  <img width="200" src="https://user-images.githubusercontent.com/43267195/108033589-8fbed700-7077-11eb-94a9-f9483545d700.gif">
+  <img width="200" src="https://user-images.githubusercontent.com/43267195/108033876-ff34c680-7077-11eb-9bee-1bfd260873bc.gif">
 </div>
   
 환경설정
