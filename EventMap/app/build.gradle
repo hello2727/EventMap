@@ -39,6 +39,9 @@ dependencies {
 
     // 네이버 지도 SDK
     implementation 'com.naver.maps:map-sdk:3.10.2'
-    //내장 위치 추적 기능
+    //내장 위치 추적 기능 (FusedLocation)
     implementation 'com.google.android.gms:play-services-location:16.0.0'
+    // openAPI 정보 얻어오기 (retrofit2 + gson)
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
 }
