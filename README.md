@@ -11,11 +11,9 @@
 ### 전체적인 구성
 - 로딩 화면
 
-- 홈
+- 위치추적 권한 허용 선택창
 <div>
-  <img width="200" src="https://user-images.githubusercontent.com/43267195/83619354-b6f77600-a5c6-11ea-803c-3da4a4f00247.jpg">
-  <img width="200" src="https://user-images.githubusercontent.com/43267195/83619716-3be28f80-a5c7-11ea-8b53-c97140970015.jpg">
-  <img width="200" src="https://user-images.githubusercontent.com/43267195/83619751-47ce5180-a5c7-11ea-9978-aafee1f1607d.jpg">
+  <img width="200" src="https://user-images.githubusercontent.com/43267195/108024445-f2a87200-7067-11eb-8cde-9234b02db614.PNG">
 </div>
   
 환경설정
