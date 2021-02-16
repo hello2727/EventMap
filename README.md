@@ -18,7 +18,8 @@
   <img width="200" src="https://user-images.githubusercontent.com/43267195/83619751-47ce5180-a5c7-11ea-9978-aafee1f1607d.jpg">
 </div>
   
-### 환경설정
+환경설정
+-----------------
 - build.gradle(module)
 ```
 dependencies {
