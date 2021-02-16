@@ -4,7 +4,7 @@
 
 개발환경
 -----------------
-* Android Java NaverMap_API SharedPreferences
+* Android Java NaverMap_API SharedPreferences restAPI Retrofit2 GSON
 
 결과물
 -----------------
