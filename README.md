@@ -2,6 +2,11 @@
 ==============================
 >전국 여행정보 알림 어플리케이션
 
+앱스토어 등록여부
+-----------------
+* 
+* 주소: 
+
 개발환경
 -----------------
 * Android Java NaverMap_API SharedPreferences restAPI Retrofit2 GSON
