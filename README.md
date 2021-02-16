@@ -13,7 +13,12 @@
 
 - 위치추적 권한 허용 선택창
 <div>
-  <img width="200" src="https://user-images.githubusercontent.com/43267195/108024445-f2a87200-7067-11eb-8cde-9234b02db614.PNG">
+  <img width="200" src="https://user-images.githubusercontent.com/43267195/108025252-80d12800-7069-11eb-8ef3-8f369e0e2bf3.jpg">
+</div>
+
+- 권한 허용 후 현재위치 표시
+<div>
+  <img width="200" src="https://user-images.githubusercontent.com/43267195/108025361-af4f0300-7069-11eb-96e2-166e6909f38b.jpg">
 </div>
   
 환경설정
