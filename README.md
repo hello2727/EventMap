@@ -47,6 +47,8 @@ allprojects {
 <uses-permission android:name="android.permission.INTERNET" />
 
 <application
+  android:usesCleartextTraffic="true"
+  android:allowBackup="false"
   <meta-data
         android:name="com.naver.maps.map.CLIENT_ID"
         android:value="{값}"/>
