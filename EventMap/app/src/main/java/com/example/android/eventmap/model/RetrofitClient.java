@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitClient {
     private static RetrofitClient instance = null;
     private static RetrofitInterface retrofitInterface;
-    private static String BASE_URL = "https://data.go.kr/index.do";
+    private static String BASE_URL = "http://api.data.go.kr/openapi/tn_pubr_public_cltur_fstvl_api/";
 
     private RetrofitClient() {
         Retrofit retrofit = new Retrofit.Builder()
