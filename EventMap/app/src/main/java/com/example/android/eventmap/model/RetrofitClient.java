@@ -18,6 +18,13 @@ public class RetrofitClient {
         retrofitInterface = retrofit.create(RetrofitInterface.class);
     }
 
+    public static RetrofitClient getInstance() {
+        if(instance == null){
+            instance = new RetrofitClient();
+        }
+        return instance;
+    }
+
     public static RetrofitInterface getRetrofitInterface() {
         return retrofitInterface;
     }

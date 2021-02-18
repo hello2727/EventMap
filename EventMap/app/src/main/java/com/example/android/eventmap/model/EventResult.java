@@ -9,4 +9,12 @@ public class EventResult {
     @SerializedName("items")
     @Expose
     private List<Items> items = null;
+
+    public List<Items> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Items> items) {
+        this.items = items;
+    }
 }

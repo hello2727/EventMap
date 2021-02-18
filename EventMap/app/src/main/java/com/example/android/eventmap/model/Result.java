@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Result {
-    @SerializedName("items")
+    @SerializedName("eventResult")
     @Expose
     private EventResult eventResult;
 
@@ -14,5 +14,11 @@ public class Result {
 
     public void setEventResult(EventResult eventResult){
         this.eventResult = eventResult;
+    }
+
+    public String toString(){
+        return "eventResult["+
+                eventResult +
+                "]";
     }
 }

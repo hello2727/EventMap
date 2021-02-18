@@ -15,6 +15,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.android.eventmap.R;
+import com.example.android.eventmap.model.EventResult;
+import com.example.android.eventmap.model.Interface.RetrofitInterface;
+import com.example.android.eventmap.model.Items;
+import com.example.android.eventmap.model.Result;
+import com.example.android.eventmap.model.RetrofitClient;
 import com.example.android.eventmap.util.MySharedPreferences;
 import com.google.android.material.navigation.NavigationView;
 import com.naver.maps.map.LocationTrackingMode;
@@ -26,6 +31,10 @@ import com.naver.maps.map.UiSettings;
 import com.naver.maps.map.util.FusedLocationSource;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
     MapView mapView;
@@ -45,6 +54,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     MySharedPreferences mySharedPreferences;
 
+    RetrofitClient retrofitClient;
+    RetrofitInterface retrofitInterface;
+    List<Items> items; //축제정보 리스트
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +69,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         getMapInstance();
         //옵션 클릭하기
         ifClick();
+        //축제정보 api 가져오기
+        getEventAPI();
     }
 
     void init() {
@@ -97,6 +112,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         mySharedPreferences = new MySharedPreferences(this);
 
         locationSource = new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
+
+        retrofitClient = RetrofitClient.getInstance();
+        retrofitInterface = RetrofitClient.getRetrofitInterface();
     }
 
     @Override
@@ -411,6 +429,25 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                     mySharedPreferences.setCadastral(false);
                 }
+            }
+        });
+    }
+
+    void getEventAPI(){
+        retrofitInterface.getEvent().enqueue(new Callback<Result>() {
+            @Override
+            public void onResponse(Call<Result> call, Response<Result> response) {
+                Result result = response.body();
+                EventResult eventResult = result.getEventResult();
+                Log.d("retrofit", "축제 api 데이터 가져오기 성공:\n"+result.toString());
+//                for(int i = 0; i < eventResult.getItems().size(); i++){
+//
+//                }
+            }
+
+            @Override
+            public void onFailure(Call<Result> call, Throwable t) {
+                Log.d("retrofit", t.getMessage());
             }
         });
     }
