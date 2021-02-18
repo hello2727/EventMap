@@ -5,6 +5,8 @@ import androidx.annotation.UiThread;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+
+import android.content.ClipData;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -57,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     RetrofitClient retrofitClient;
     RetrofitInterface retrofitInterface;
     List<Items> items; //축제정보 리스트
+    private final String API_KEY = "flqNpXIymv5sUe63nK6VOIcPpe4Gjh3ms%2FuIsRg9nYrtrsoRAzNWiBCGzxczHzbgNa0PSOgF3ROfJZYDaqybfA%3D%3D";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -434,12 +437,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     void getEventAPI(){
-        retrofitInterface.getEvent().enqueue(new Callback<Result>() {
+        long curTime = System.currentTimeMillis();;
+        Date date = new Date(curTime);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+        String curDay = format.format(date);
+
+        retrofitInterface.getEvent(API_KEY, 0, 100, "json").enqueue(new Callback<Result>() {
             @Override
             public void onResponse(Call<Result> call, Response<Result> response) {
                 Result result = response.body();
                 EventResult eventResult = result.getEventResult();
-                Log.d("retrofit", "축제 api 데이터 가져오기 성공:\n"+result.toString());
+                Log.d("retrofit", "축제 api 데이터 가져오기 성공:\n"+eventResult);
 //                for(int i = 0; i < eventResult.getItems().size(); i++){
 //
 //                }

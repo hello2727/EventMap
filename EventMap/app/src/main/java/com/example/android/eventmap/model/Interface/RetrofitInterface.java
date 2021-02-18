@@ -7,6 +7,6 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface RetrofitInterface {
-    @GET("?serviceKey=flqNpXIymv5sUe63nK6VOIcPpe4Gjh3ms%2FuIsRg9nYrtrsoRAzNWiBCGzxczHzbgNa0PSOgF3ROfJZYDaqybfA%3D%3D&pageNo=0&numOfRows=100&type=json")
-    Call<Result> getEvent();
+    @GET("openapi/tn_pubr_public_cltur_fstvl_api")
+    Call<Result> getEvent(@Query("serviceKey") String serviceKey, @Query("pageNo") int pageNo, @Query("numOfRows") int numOfRows, @Query("type") String type);
 }
