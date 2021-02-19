@@ -23,6 +23,7 @@ import com.example.android.eventmap.model.Response_J;
 import com.example.android.eventmap.model.RetrofitClient;
 import com.example.android.eventmap.util.MySharedPreferences;
 import com.google.android.material.navigation.NavigationView;
+import com.google.gson.Gson;
 import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.MapView;
 import com.naver.maps.map.NaverMap;
@@ -441,13 +442,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
         String curDay = format.format(date);
 
-        retrofitInterface.getEvent(API_KEY, 0, 100, "json").enqueue(new Callback<Response_J>() {
+        retrofitInterface.getEvent().enqueue(new Callback<Response_J>() {
             @Override
             public void onResponse(Call<Response_J> call, Response<Response_J> response) {
-                Response_J response_j = response.body();
+                Gson gson = new Gson();
+                Response_J response_j = gson.fromJson(response.toString(), Response_J.class);
                 Body body = response_j.getBody();
+                items = body.getItems();
                 Log.d("retrofit", "Data fetch success");
-                Log.d("출력 내용", response_j.toString());
+                for(int i = 0; i < items.size(); i++){
+                    Log.d("출력 내용", items.get(i).toString());
+                }
             }
 
             @Override
