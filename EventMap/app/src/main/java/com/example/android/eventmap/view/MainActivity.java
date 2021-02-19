@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.content.ClipData;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,10 +16,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.android.eventmap.R;
-import com.example.android.eventmap.model.EventResult;
+import com.example.android.eventmap.model.Body;
 import com.example.android.eventmap.model.Interface.RetrofitInterface;
 import com.example.android.eventmap.model.Items;
-import com.example.android.eventmap.model.Result;
+import com.example.android.eventmap.model.Response_J;
 import com.example.android.eventmap.model.RetrofitClient;
 import com.example.android.eventmap.util.MySharedPreferences;
 import com.google.android.material.navigation.NavigationView;
@@ -442,19 +441,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
         String curDay = format.format(date);
 
-        retrofitInterface.getEvent(API_KEY, 0, 100, "json").enqueue(new Callback<Result>() {
+        retrofitInterface.getEvent(API_KEY, 0, 100, "json").enqueue(new Callback<Response_J>() {
             @Override
-            public void onResponse(Call<Result> call, Response<Result> response) {
-                Result result = response.body();
-                EventResult eventResult = result.getEventResult();
-                Log.d("retrofit", "축제 api 데이터 가져오기 성공:\n"+eventResult);
-//                for(int i = 0; i < eventResult.getItems().size(); i++){
-//
-//                }
+            public void onResponse(Call<Response_J> call, Response<Response_J> response) {
+                Response_J response_j = response.body();
+                Body body = response_j.getBody();
+                Log.d("retrofit", "Data fetch success");
+                Log.d("출력 내용", response_j.toString());
             }
 
             @Override
-            public void onFailure(Call<Result> call, Throwable t) {
+            public void onFailure(Call<Response_J> call, Throwable t) {
                 Log.d("retrofit", t.getMessage());
             }
         });
