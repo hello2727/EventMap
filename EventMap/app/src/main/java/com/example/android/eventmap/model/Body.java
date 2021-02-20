@@ -11,13 +11,13 @@ public class Body {
     private List<Items> items = null;
     @SerializedName("totalCount")
     @Expose
-    private int totalCount;
+    private String totalCount;
     @SerializedName("numOfRows")
     @Expose
-    private int numOfRows;
+    private String numOfRows;
     @SerializedName("pageNo")
     @Expose
-    private int pageNo;
+    private String pageNo;
 
     public List<Items> getItems() {
         return items;
@@ -27,27 +27,27 @@ public class Body {
         this.items = items;
     }
 
-    public int getTotalCount() {
+    public String getTotalCount() {
         return totalCount;
     }
 
-    public void setTotalCount(int totalCount) {
+    public void setTotalCount(String totalCount) {
         this.totalCount = totalCount;
     }
 
-    public int getNumOfRows() {
+    public String getNumOfRows() {
         return numOfRows;
     }
 
-    public void setNumOfRows(int numOfRows) {
+    public void setNumOfRows(String numOfRows) {
         this.numOfRows = numOfRows;
     }
 
-    public int getPageNo() {
+    public String getPageNo() {
         return pageNo;
     }
 
-    public void setPageNo(int pageNo) {
+    public void setPageNo(String pageNo) {
         this.pageNo = pageNo;
     }
 }

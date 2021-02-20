@@ -23,7 +23,6 @@ import com.example.android.eventmap.model.Response_J;
 import com.example.android.eventmap.model.RetrofitClient;
 import com.example.android.eventmap.util.MySharedPreferences;
 import com.google.android.material.navigation.NavigationView;
-import com.google.gson.Gson;
 import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.MapView;
 import com.naver.maps.map.NaverMap;
@@ -59,7 +58,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     RetrofitClient retrofitClient;
     RetrofitInterface retrofitInterface;
     List<Items> items; //축제정보 리스트
-    private final String API_KEY = "flqNpXIymv5sUe63nK6VOIcPpe4Gjh3ms%2FuIsRg9nYrtrsoRAzNWiBCGzxczHzbgNa0PSOgF3ROfJZYDaqybfA%3D%3D";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -442,22 +440,23 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
         String curDay = format.format(date);
 
-        retrofitInterface.getEvent().enqueue(new Callback<Response_J>() {
+        retrofitInterface.getEvent(0, 100, "json").enqueue(new Callback<Response_J>() {
             @Override
             public void onResponse(Call<Response_J> call, Response<Response_J> response) {
-                Gson gson = new Gson();
-                Response_J response_j = gson.fromJson(response.toString(), Response_J.class);
+                Response_J response_j = response.body();
+                //                Gson gson = new Gson();
+//                Body body = gson.fromJson(response_j.toString(), Body.class);
                 Body body = response_j.getBody();
                 items = body.getItems();
                 Log.d("retrofit", "Data fetch success");
-                for(int i = 0; i < items.size(); i++){
+                for(int i = 0; i < items.size(); i++) {
                     Log.d("출력 내용", items.get(i).toString());
                 }
             }
 
             @Override
             public void onFailure(Call<Response_J> call, Throwable t) {
-                Log.d("retrofit", t.getMessage());
+                Log.d("retrofit 오류", t.getMessage());
             }
         });
     }

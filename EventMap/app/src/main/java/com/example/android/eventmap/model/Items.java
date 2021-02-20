@@ -55,7 +55,7 @@ public class Items {
     @SerializedName("instt_code") //제공기관코드
     @Expose
     private String instt_code;
-    @SerializedName("instt_nm") //제공기관기관명
-    @Expose
-    private String instt_nm;
+//    @SerializedName("instt_nm") //제공기관기관명
+//    @Expose
+//    private String instt_nm;
 }
