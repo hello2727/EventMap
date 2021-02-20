@@ -20,6 +20,7 @@ import com.example.android.eventmap.model.Body;
 import com.example.android.eventmap.model.Interface.RetrofitInterface;
 import com.example.android.eventmap.model.Items;
 import com.example.android.eventmap.model.Response_J;
+import com.example.android.eventmap.model.Result;
 import com.example.android.eventmap.model.RetrofitClient;
 import com.example.android.eventmap.util.MySharedPreferences;
 import com.google.android.material.navigation.NavigationView;
@@ -440,12 +441,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
         String curDay = format.format(date);
 
-        retrofitInterface.getEvent(0, 100, "json").enqueue(new Callback<Response_J>() {
+        retrofitInterface.getEvent(0, 100, "json").enqueue(new Callback<Result>() {
             @Override
-            public void onResponse(Call<Response_J> call, Response<Response_J> response) {
-                Response_J response_j = response.body();
+            public void onResponse(Call<Result> call, Response<Result> response) {
+                Result result = response.body();
                 //                Gson gson = new Gson();
 //                Body body = gson.fromJson(response_j.toString(), Body.class);
+                Response_J response_j = result.getResponse_j();
                 Body body = response_j.getBody();
                 items = body.getItems();
                 Log.d("retrofit", "Data fetch success");
@@ -455,7 +457,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
 
             @Override
-            public void onFailure(Call<Response_J> call, Throwable t) {
+            public void onFailure(Call<Result> call, Throwable t) {
                 Log.d("retrofit 오류", t.getMessage());
             }
         });
