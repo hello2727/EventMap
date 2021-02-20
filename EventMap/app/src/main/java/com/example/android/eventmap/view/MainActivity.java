@@ -19,7 +19,6 @@ import com.example.android.eventmap.R;
 import com.example.android.eventmap.model.Body;
 import com.example.android.eventmap.model.Interface.RetrofitInterface;
 import com.example.android.eventmap.model.Items;
-import com.example.android.eventmap.model.Response_J;
 import com.example.android.eventmap.model.Result;
 import com.example.android.eventmap.model.RetrofitClient;
 import com.example.android.eventmap.util.MySharedPreferences;
@@ -59,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     RetrofitClient retrofitClient;
     RetrofitInterface retrofitInterface;
     List<Items> items; //축제정보 리스트
+    private final String API_KEY = "flqNpXIymv5sUe63nK6VOIcPpe4Gjh3ms%2FuIsRg9nYrtrsoRAzNWiBCGzxczHzbgNa0PSOgF3ROfJZYDaqybfA%3D%3D";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -441,14 +441,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
         String curDay = format.format(date);
 
-        retrofitInterface.getEvent(0, 100, "json").enqueue(new Callback<Result>() {
+        retrofitInterface.getEvent().enqueue(new Callback<Result>() {
             @Override
-            public void onResponse(Call<Result> call, Response<Result> response) {
-                Result result = response.body();
-                //                Gson gson = new Gson();
-//                Body body = gson.fromJson(response_j.toString(), Body.class);
-                Response_J response_j = result.getResponse_j();
-                Body body = response_j.getBody();
+            public void onResponse(Call<Result> call, Response<Result> responsed) {
+                Result result = responsed.body();
+                com.example.android.eventmap.model.Response response = result.getResponse();
+                Body body = response.getBody();
                 items = body.getItems();
                 Log.d("retrofit", "Data fetch success");
                 for(int i = 0; i < items.size(); i++) {

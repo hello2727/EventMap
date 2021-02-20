@@ -52,10 +52,7 @@ public class Items {
     @SerializedName("referenceDate") //데이터기준일자
     @Expose
     private String referenceDate;
-    @SerializedName("instt_code") //제공기관코드
+    @SerializedName("insttCode") //제공기관코드
     @Expose
-    private String instt_code;
-//    @SerializedName("instt_nm") //제공기관기관명
-//    @Expose
-//    private String instt_nm;
+    private String insttCode;
 }

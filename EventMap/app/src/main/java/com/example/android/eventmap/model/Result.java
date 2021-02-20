@@ -4,15 +4,15 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Result {
-    @SerializedName("response_j")
+    @SerializedName("response")
     @Expose
-    private Response_J response_j;
+    private Response response;
 
-    public Response_J getResponse_j() {
-        return response_j;
+    public Response getResponse () {
+        return response;
     }
 
-    public void setResponse_j(Response_J response_j) {
-        this.response_j = response_j;
+    public void setResponse (Response response) {
+        this.response = response;
     }
 }
