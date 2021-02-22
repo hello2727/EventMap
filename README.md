@@ -9,7 +9,7 @@
 
 개발환경
 -----------------
-* Android Java NaverMap_API SharedPreferences restAPI Retrofit2 GSON
+* Android Java Postman NaverMap_API SharedPreferences restAPI Retrofit2 GSON
 
 진행상황
 -----------------
