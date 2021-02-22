@@ -11,6 +11,10 @@
 -----------------
 * Android Java NaverMap_API SharedPreferences restAPI Retrofit2 GSON
 
+진행상황
+-----------------
+현재 open API를 제공하는 서버측의 JSON 처리 문제로 개발에 지연이 있는 상황입니다. 해결 후 다시 업로드하겠습니다. 
+
 결과물
 -----------------
 ### 전체적인 구성
