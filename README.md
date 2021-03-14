@@ -9,7 +9,7 @@
 
 개발환경
 -----------------
-* Android Java Postman NaverMap_API SharedPreferences restAPI Retrofit2 GSON
+* Android Java Postman NaverMap_API SharedPreferences restAPI Retrofit2 GSON 클린코드(유지보수, 가독성에 초점)
 
 진행상황
 -----------------
