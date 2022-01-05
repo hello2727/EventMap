@@ -1,4 +1,4 @@
-package com.example.android.eventmap.view;
+package com.example.android.eventmap.view.main;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.UiThread;
