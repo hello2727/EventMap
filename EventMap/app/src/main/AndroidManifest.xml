@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.android.eventmap">
 
+    <uses-sdk tools:overrideLibrary="com.google.android.material" />
+
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -25,7 +27,7 @@
             </intent-filter>
         </activity>
         <meta-data
-            android:name="com.naver.maps.map.CLIENT_ID"
-            android:value="f607t6uv75"/>
+            android:name="@string/navermap_client_id"
+            android:value="@string/navermap_password"/>
     </application>
 </manifest>
