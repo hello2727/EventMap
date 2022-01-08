@@ -33,10 +33,13 @@ import com.naver.maps.map.util.FusedLocationSource;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import dagger.hilt.android.AndroidEntryPoint;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+@AndroidEntryPoint
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
     MapView mapView;
     NaverMap mNaverMap;
