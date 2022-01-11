@@ -21,7 +21,7 @@ import com.example.android.eventmap.model.Interface.RetrofitInterface;
 import com.example.android.eventmap.model.Items;
 import com.example.android.eventmap.model.Result;
 import com.example.android.eventmap.model.RetrofitClient;
-import com.example.android.eventmap.util.MySharedPreferences;
+import com.example.android.eventmap.util.pref.MySharedPreferences;
 import com.google.android.material.navigation.NavigationView;
 import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.MapView;
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     RetrofitClient retrofitClient;
     RetrofitInterface retrofitInterface;
     List<Items> items; //축제정보 리스트
-    private final String API_KEY = "flqNpXIymv5sUe63nK6VOIcPpe4Gjh3ms%2FuIsRg9nYrtrsoRAzNWiBCGzxczHzbgNa0PSOgF3ROfJZYDaqybfA%3D%3D";
+    private final String API_KEY = getString(R.string.event_api_key);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

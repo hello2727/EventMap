@@ -1,4 +1,4 @@
-package com.example.android.eventmap.util;
+package com.example.android.eventmap.util.pref;
 
 /*
 * 설정 값 유지하기

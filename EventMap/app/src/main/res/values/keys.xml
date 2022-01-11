@@ -2,4 +2,6 @@
 <resources>
     <string name="navermap_client_id">com.naver.maps.map.CLIENT_ID</string>
     <string name="navermap_password">f607t6uv75</string>
+
+    <string name="event_api_key">flqNpXIymv5sUe63nK6VOIcPpe4Gjh3ms%2FuIsRg9nYrtrsoRAzNWiBCGzxczHzbgNa0PSOgF3ROfJZYDaqybfA%3D%3D</string>
 </resources>
