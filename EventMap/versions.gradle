@@ -1,4 +1,6 @@
 ext {
     minVersion = 23
     targetVersion = 31
+
+    dataStoreVersion = "1.0.0"
 }
