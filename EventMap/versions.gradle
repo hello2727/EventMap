@@ -3,4 +3,5 @@ ext {
     targetVersion = 31
 
     dataStoreVersion = "1.0.0"
+    retrofitVersion = "2.9.0"
 }

@@ -1,11 +1,5 @@
 package com.example.android.eventmap.view.main;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.UiThread;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,12 +9,19 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.UiThread;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
 import com.example.android.eventmap.R;
 import com.example.android.eventmap.model.Body;
-import com.example.android.eventmap.model.Interface.RetrofitInterface;
 import com.example.android.eventmap.model.Items;
-import com.example.android.eventmap.model.Result;
 import com.example.android.eventmap.model.RetrofitClient;
+import com.example.android.eventmap.model.remote.net.MainNetwork;
+import com.example.android.eventmap.model.remote.vo.EventVo;
 import com.example.android.eventmap.util.pref.MySharedPreferences;
 import com.google.android.material.navigation.NavigationView;
 import com.naver.maps.map.LocationTrackingMode;
@@ -30,7 +31,9 @@ import com.naver.maps.map.NaverMapSdk;
 import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.UiSettings;
 import com.naver.maps.map.util.FusedLocationSource;
+
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -59,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     MySharedPreferences mySharedPreferences;
 
     RetrofitClient retrofitClient;
-    RetrofitInterface retrofitInterface;
+    MainNetwork retrofitInterface;
     List<Items> items; //축제정보 리스트
     private final String API_KEY = getString(R.string.event_api_key);
 
@@ -134,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
-    void getMapInstance(){
+    void getMapInstance() {
         //인증 실패 처리
         /*
          * UnauthorizedClientException(401):잘못된 클라이언트 ID를 지정함, 잘못된 클라이언트 유형을 사용함, 콘솔에서 앱 패키지 이름을 잘못 등록함
@@ -165,57 +168,58 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         setUiEvent();
     }
 
-    void calling_up_setting(){
+    void calling_up_setting() {
         //지도종류 세팅
-        if(mySharedPreferences.getBasic()){
+        if (mySharedPreferences.getBasic()) {
             mNaverMap.setMapType(NaverMap.MapType.Basic);
             tv_basic.setTextColor(Color.BLACK);
-        }else if(mySharedPreferences.getSatellite()){
+        } else if (mySharedPreferences.getSatellite()) {
             mNaverMap.setMapType(NaverMap.MapType.Hybrid);
             tv_hybrid.setTextColor(Color.BLACK);
-        }else if(mySharedPreferences.getTerrain()){
+        } else if (mySharedPreferences.getTerrain()) {
             mNaverMap.setMapType(NaverMap.MapType.Terrain);
             tv_terrain.setTextColor(Color.BLACK);
-        }else if(mySharedPreferences.getNavi()){
+        } else if (mySharedPreferences.getNavi()) {
             mNaverMap.setMapType(NaverMap.MapType.Navi);
             tv_navi.setTextColor(Color.BLACK);
         }
 
         //부가정보 세팅
-        if(mySharedPreferences.getIndoor()){
+        if (mySharedPreferences.getIndoor()) {
             mNaverMap.setIndoorEnabled(true);
             tv_indoor.setTextColor(Color.BLUE);
             click_count[5]++;
         }
-        if(mySharedPreferences.getTraffic()){
+        if (mySharedPreferences.getTraffic()) {
             mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_TRAFFIC, true);
             tv_traffic.setTextColor(Color.BLUE);
             click_count[0]++;
         }
-        if(mySharedPreferences.getTransit()){
+        if (mySharedPreferences.getTransit()) {
             mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_TRANSIT, true);
             tv_transit.setTextColor(Color.BLUE);
             click_count[1]++;
         }
-        if(mySharedPreferences.getBicycle()){
+        if (mySharedPreferences.getBicycle()) {
             mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_BICYCLE, true);
             tv_bicycle.setTextColor(Color.BLUE);
             click_count[2]++;
         }
-        if(mySharedPreferences.getMountain()){
+        if (mySharedPreferences.getMountain()) {
             mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_MOUNTAIN, true);
             tv_mountain.setTextColor(Color.BLUE);
             click_count[3]++;
         }
-        if(mySharedPreferences.getCadastral()){
+        if (mySharedPreferences.getCadastral()) {
             mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_CADASTRAL, true);
             tv_cadastral.setTextColor(Color.BLUE);
             click_count[4]++;
         }
     }
 
-    void setNightMode(){
-        long curTime = System.currentTimeMillis();;
+    void setNightMode() {
+        long curTime = System.currentTimeMillis();
+        ;
         Date date = new Date(curTime);
         SimpleDateFormat format = new SimpleDateFormat("HH");
         String curHour = format.format(date);
@@ -223,14 +227,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         Log.d("현재시간", Integer.toString(hour));
 
-        if(06 < hour && hour < 21){
+        if (06 < hour && hour < 21) {
             mNaverMap.setNightModeEnabled(false);
-        }else{
+        } else {
             mNaverMap.setNightModeEnabled(true);
         }
     }
 
-    void setUiEvent(){
+    void setUiEvent() {
         UiSettings uiSettings = mNaverMap.getUiSettings();
         //현위치버튼(위치추적)
         uiSettings.setLocationButtonEnabled(true);
@@ -244,19 +248,19 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         });
     }
 
-    void ifClick(){
+    void ifClick() {
         ibtn_navigationOpen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 main_drawerLayout.openDrawer(GravityCompat.START);
 
-                if(mNaverMap.getMapType() == NaverMap.MapType.Basic){
+                if (mNaverMap.getMapType() == NaverMap.MapType.Basic) {
                     tv_basic.setTextColor(Color.BLACK);
-                }else if(mNaverMap.getMapType() == NaverMap.MapType.Hybrid){
+                } else if (mNaverMap.getMapType() == NaverMap.MapType.Hybrid) {
                     tv_hybrid.setTextColor(Color.BLACK);
-                }else if(mNaverMap.getMapType() == NaverMap.MapType.Terrain){
+                } else if (mNaverMap.getMapType() == NaverMap.MapType.Terrain) {
                     tv_terrain.setTextColor(Color.BLACK);
-                }else if(mNaverMap.getMapType() == NaverMap.MapType.Navi){
+                } else if (mNaverMap.getMapType() == NaverMap.MapType.Navi) {
                     tv_navi.setTextColor(Color.BLACK);
                 }
             }
@@ -330,13 +334,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         ll_indoor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(click_count[5] == 0){
+                if (click_count[5] == 0) {
                     mNaverMap.setIndoorEnabled(true);
                     tv_indoor.setTextColor(Color.BLUE);
                     click_count[5]++;
 
                     mySharedPreferences.setIndoor(true);
-                }else if(click_count[5] == 1){
+                } else if (click_count[5] == 1) {
                     mNaverMap.setIndoorEnabled(false);
                     tv_indoor.setTextColor(Color.GRAY);
                     click_count[5] = 0;
@@ -349,13 +353,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         ll_traffic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(click_count[0] == 0){
+                if (click_count[0] == 0) {
                     mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_TRAFFIC, true);
                     tv_traffic.setTextColor(Color.BLUE);
                     click_count[0]++;
 
                     mySharedPreferences.setTraffic(true);
-                }else if(click_count[0] == 1){
+                } else if (click_count[0] == 1) {
                     mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_TRAFFIC, false);
                     tv_traffic.setTextColor(Color.GRAY);
                     click_count[0] = 0;
@@ -367,13 +371,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         ll_transit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(click_count[1] == 0){
+                if (click_count[1] == 0) {
                     mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_TRANSIT, true);
                     tv_transit.setTextColor(Color.BLUE);
                     click_count[1]++;
 
                     mySharedPreferences.setTransit(true);
-                }else if(click_count[1] == 1){
+                } else if (click_count[1] == 1) {
                     mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_TRANSIT, false);
                     tv_transit.setTextColor(Color.GRAY);
                     click_count[1] = 0;
@@ -385,13 +389,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         ll_bicycle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(click_count[2] == 0){
+                if (click_count[2] == 0) {
                     mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_BICYCLE, true);
                     tv_bicycle.setTextColor(Color.BLUE);
                     click_count[2]++;
 
                     mySharedPreferences.setBicycle(true);
-                }else if(click_count[2] == 1){
+                } else if (click_count[2] == 1) {
                     mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_BICYCLE, false);
                     tv_bicycle.setTextColor(Color.GRAY);
                     click_count[2] = 0;
@@ -403,13 +407,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         ll_mountain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(click_count[3] == 0){
+                if (click_count[3] == 0) {
                     mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_MOUNTAIN, true);
                     tv_mountain.setTextColor(Color.BLUE);
                     click_count[3]++;
 
                     mySharedPreferences.setMountain(true);
-                }else if(click_count[3] == 1){
+                } else if (click_count[3] == 1) {
                     mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_MOUNTAIN, false);
                     tv_mountain.setTextColor(Color.GRAY);
                     click_count[3] = 0;
@@ -421,13 +425,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         ll_cadastral.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(click_count[4] == 0){
+                if (click_count[4] == 0) {
                     mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_CADASTRAL, true);
                     tv_cadastral.setTextColor(Color.BLUE);
                     click_count[4]++;
 
                     mySharedPreferences.setCadastral(true);
-                }else if(click_count[4] == 1){
+                } else if (click_count[4] == 1) {
                     mNaverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_CADASTRAL, false);
                     tv_cadastral.setTextColor(Color.GRAY);
                     click_count[4] = 0;
@@ -438,27 +442,27 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         });
     }
 
-    void getEventAPI(){
-        long curTime = System.currentTimeMillis();;
+    void getEventAPI() {
+        long curTime = System.currentTimeMillis();
+        ;
         Date date = new Date(curTime);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
         String curDay = format.format(date);
 
-        retrofitInterface.getEvent().enqueue(new Callback<Result>() {
+        retrofitInterface.getEvent().enqueue(new Callback<EventVo>() {
             @Override
-            public void onResponse(Call<Result> call, Response<Result> responsed) {
-                Result result = responsed.body();
-                com.example.android.eventmap.model.Response response = result.getResponse();
-                Body body = response.getBody();
-                items = body.getItems();
+            public void onResponse(Call<EventVo> call, Response<EventVo> responsed) {
+                EventVo result = responsed.body();
+                EventVo response = result;
+                items = Collections.emptyList();
                 Log.d("retrofit", "Data fetch success");
-                for(int i = 0; i < items.size(); i++) {
+                for (int i = 0; i < items.size(); i++) {
                     Log.d("출력 내용", items.get(i).toString());
                 }
             }
 
             @Override
-            public void onFailure(Call<Result> call, Throwable t) {
+            public void onFailure(Call<EventVo> call, Throwable t) {
                 Log.d("retrofit 오류", t.getMessage());
             }
         });
@@ -469,13 +473,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         long curTime = System.currentTimeMillis();
         long gapTime = curTime - backBtnTime;
 
-        if(main_drawerLayout.isDrawerOpen(navigationview_setting)){
+        if (main_drawerLayout.isDrawerOpen(navigationview_setting)) {
             main_drawerLayout.closeDrawer(GravityCompat.START);
-        }else{
+        } else {
             //두번 눌러 뒤로가기 종료
-            if(0 <= gapTime && 2000 >= gapTime){
+            if (0 <= gapTime && 2000 >= gapTime) {
                 super.onBackPressed();
-            }else{
+            } else {
                 backBtnTime = curTime;
                 Toast.makeText(this, "버튼을 한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
             }

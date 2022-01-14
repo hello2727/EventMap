@@ -81,13 +81,14 @@ dependencies {
     implementation "androidx.datastore:datastore-rxjava3:$dataStoreVersion"
     implementation "androidx.datastore:datastore-core:$dataStoreVersion"
 
+    // retrofit2 + GSON
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+
     // 네이버 지도 SDK
     implementation 'com.naver.maps:map-sdk:3.13.0'
     //내장 위치 추적 기능 (FusedLocation)
     implementation 'com.google.android.gms:play-services-location:19.0.1'
-    // openAPI 정보 얻어오기 (retrofit2 + gson)
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 }
 
 kapt {
