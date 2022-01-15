@@ -4,4 +4,5 @@ ext {
 
     dataStoreVersion = "1.0.0"
     retrofitVersion = "2.9.0"
+    gsonVersion = "2.8.9"
 }

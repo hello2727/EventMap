@@ -84,6 +84,7 @@ dependencies {
     // retrofit2 + GSON
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.google.code.gson:gson:$gsonVersion"
 
     // 네이버 지도 SDK
     implementation 'com.naver.maps:map-sdk:3.13.0'

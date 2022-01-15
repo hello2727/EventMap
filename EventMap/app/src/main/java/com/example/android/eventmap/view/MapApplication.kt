@@ -10,8 +10,11 @@ import dagger.hilt.android.HiltAndroidApp
  */
 @HiltAndroidApp
 class MapApplication : Application() {
+    private lateinit var INSTANCE: MapApplication
+
     override fun onCreate() {
         super.onCreate()
+        INSTANCE = this
     }
 
     override fun onTerminate() {
