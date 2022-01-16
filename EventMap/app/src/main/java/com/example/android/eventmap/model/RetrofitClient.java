@@ -1,13 +1,13 @@
 package com.example.android.eventmap.model;
 
-import com.example.android.eventmap.model.remote.net.MainNetwork;
+import com.example.android.eventmap.model.remote.api.MainApi;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
     private static RetrofitClient instance = null;
-    private static MainNetwork retrofitInterface;
+    private static MainApi retrofitInterface;
     private static String BASE_URL = "http://api.data.go.kr/openapi/";
 
     private RetrofitClient() {
@@ -15,7 +15,7 @@ public class RetrofitClient {
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        retrofitInterface = retrofit.create(MainNetwork.class);
+        retrofitInterface = retrofit.create(MainApi.class);
     }
 
     public static RetrofitClient getInstance() {
@@ -25,7 +25,7 @@ public class RetrofitClient {
         return instance;
     }
 
-    public static MainNetwork getRetrofitInterface() {
+    public static MainApi getRetrofitInterface() {
         return retrofitInterface;
     }
 }

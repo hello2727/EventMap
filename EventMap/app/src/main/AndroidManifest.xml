@@ -19,7 +19,7 @@
         android:theme="@style/Theme.EventMap"
         tools:ignore="RtlEnabled,UnusedAttribute">
         <activity android:name=".view.main.MainActivity"
-            android:exported="false">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

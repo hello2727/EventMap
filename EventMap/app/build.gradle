@@ -72,8 +72,14 @@ dependencies {
     // Hilt
     implementation "com.google.dagger:hilt-android:$hiltVersion"
     kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
+    // Hilt testing
     testImplementation "com.google.dagger:hilt-android-testing:$hiltVersion"
     kaptTest "com.google.dagger:hilt-compiler:$hiltVersion"
+
+    // Lifecycle
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
+    implementation "androidx.fragment:fragment-ktx:1.4.0"
 
     // DataStore
     implementation "androidx.datastore:datastore:$dataStoreVersion"
@@ -90,8 +96,13 @@ dependencies {
     implementation 'com.naver.maps:map-sdk:3.13.0'
     //내장 위치 추적 기능 (FusedLocation)
     implementation 'com.google.android.gms:play-services-location:19.0.1'
+
+    // LeakCanary
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.8.1'
 }
 
 kapt {
-    correctErrorTypes true
+    arguments {
+        arg("dagger.hilt.shareTestComponents", "true")
+    }
 }
