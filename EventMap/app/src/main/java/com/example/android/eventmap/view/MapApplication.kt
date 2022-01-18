@@ -2,7 +2,9 @@ package com.example.android.eventmap.view
 
 import android.app.Application
 import android.content.res.Configuration
+import com.example.android.eventmap.BuildConfig
 import dagger.hilt.android.HiltAndroidApp
+import timber.log.Timber
 
 /**
  * Created by Jihye Noh
@@ -15,6 +17,10 @@ class MapApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         INSTANCE = this
+
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
     }
 
     override fun onTerminate() {
