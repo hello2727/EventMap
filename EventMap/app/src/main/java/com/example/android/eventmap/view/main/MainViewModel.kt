@@ -1,9 +1,13 @@
 package com.example.android.eventmap.view.main
 
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.android.eventmap.view.main.type.MapKindType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.plus
 import timber.log.Timber
 import javax.inject.Inject
@@ -20,4 +24,15 @@ class MainViewModel @Inject constructor(
         Timber.e(e.toString())
     }
 
+    private val _selectedMap = MutableStateFlow(MapKindType.BASIC)
+    val selectedMap : StateFlow<MapKindType> = _selectedMap
+
+//    private val selectedMap = MediatorLiveData<Boolean>().apply {
+//        addSource() {
+//            value = it
+//        }
+//        addSource() {
+//            value = it
+//        }
+//    }
 }

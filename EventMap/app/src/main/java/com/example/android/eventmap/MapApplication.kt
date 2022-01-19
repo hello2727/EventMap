@@ -1,8 +1,7 @@
-package com.example.android.eventmap.view
+package com.example.android.eventmap
 
 import android.app.Application
 import android.content.res.Configuration
-import com.example.android.eventmap.BuildConfig
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 

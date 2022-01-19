@@ -1,4 +1,4 @@
-package com.example.android.eventmap.model.remote.vo
+package com.example.android.eventmap.repository.remote.vo
 
 import com.google.gson.annotations.SerializedName
 

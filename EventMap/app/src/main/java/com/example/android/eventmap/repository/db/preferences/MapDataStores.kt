@@ -1,4 +1,4 @@
-package com.example.android.eventmap.model.db.preferences
+package com.example.android.eventmap.repository.db.preferences
 
 /**
  * Created by Jihye Noh

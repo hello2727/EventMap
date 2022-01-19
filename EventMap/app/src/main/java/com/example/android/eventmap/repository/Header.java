@@ -1,4 +1,4 @@
-package com.example.android.eventmap.model;
+package com.example.android.eventmap.repository;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
