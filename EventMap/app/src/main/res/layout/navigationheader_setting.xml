@@ -8,6 +8,8 @@
         <variable
             name="model"
             type="com.example.android.eventmap.view.main.MainViewModel" />
+
+        <import type="com.example.android.eventmap.view.main.type.MapKindType" />
     </data>
 
     <LinearLayout

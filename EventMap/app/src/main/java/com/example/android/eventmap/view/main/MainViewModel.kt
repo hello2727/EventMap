@@ -1,6 +1,5 @@
 package com.example.android.eventmap.view.main
 
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.android.eventmap.view.main.type.MapKindType
@@ -25,7 +24,11 @@ class MainViewModel @Inject constructor(
     }
 
     private val _selectedMap = MutableStateFlow(MapKindType.BASIC)
-    val selectedMap : StateFlow<MapKindType> = _selectedMap
+    val selectedMap: StateFlow<MapKindType> = _selectedMap
+
+    fun onMapClickListener(map: MapKindType) {
+        _selectedMap.value = map
+    }
 
 //    private val selectedMap = MediatorLiveData<Boolean>().apply {
 //        addSource() {
@@ -35,4 +38,8 @@ class MainViewModel @Inject constructor(
 //            value = it
 //        }
 //    }
+
+    sealed class Event {
+
+    }
 }
