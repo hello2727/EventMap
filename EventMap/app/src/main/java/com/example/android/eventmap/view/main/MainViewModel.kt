@@ -7,6 +7,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.plus
 import timber.log.Timber
 import javax.inject.Inject
@@ -24,7 +25,7 @@ class MainViewModel @Inject constructor(
     }
 
     private val _selectedMap = MutableStateFlow(MapKindType.BASIC)
-    val selectedMap: StateFlow<MapKindType> = _selectedMap
+    val selectedMap: StateFlow<MapKindType> = _selectedMap.asStateFlow()
 
     fun onMapClickListener(map: MapKindType) {
         _selectedMap.value = map
@@ -40,6 +41,6 @@ class MainViewModel @Inject constructor(
 //    }
 
     sealed class Event {
-
+        object selectMapEvent : Event()
     }
 }
