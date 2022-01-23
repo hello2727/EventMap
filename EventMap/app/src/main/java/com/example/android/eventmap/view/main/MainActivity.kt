@@ -6,12 +6,18 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.android.eventmap.R
 import com.example.android.eventmap.databinding.ActivityMainBinding
 import com.example.android.eventmap.databinding.NavigationheaderSettingBinding
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.OnMapReadyCallback
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 /**
  * Created by Jihye Noh
@@ -39,6 +45,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onCreate(savedInstanceState)
         binding.model = viewModel
         naviMapBinding.model = viewModel
+
+        collectFlows()
     }
 
     override fun onBackPressed() {
@@ -48,6 +56,14 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onMapReady(map: NaverMap) {
         naverMap = map
+    }
+
+    private fun collectFlows() {
+        lifecycleScope.launchWhenResumed {
+            viewModel.selectedMap.collect {
+                // TODO : 지도 종류 변경시
+            }
+        }
     }
 
     private fun closeNaviMapKindDrawable() {
