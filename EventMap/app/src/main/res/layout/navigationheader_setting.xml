@@ -23,6 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="65dp"
             android:layout_marginTop="40dp"
+            android:onClick="@{() -> model.onMapClickListener(MapKindType.BASIC)}"
             android:orientation="horizontal">
 
             <ImageView
@@ -50,6 +51,7 @@
             android:id="@+id/ll_satellite"
             android:layout_width="match_parent"
             android:layout_height="65dp"
+            android:onClick="@{() -> model.onMapClickListener(MapKindType.SATELLITE)}"
             android:orientation="horizontal">
 
             <ImageView
@@ -77,6 +79,7 @@
             android:id="@+id/ll_terrain"
             android:layout_width="match_parent"
             android:layout_height="65dp"
+            android:onClick="@{() -> model.onMapClickListener(MapKindType.TERRAIN)}"
             android:orientation="horizontal">
 
             <ImageView
@@ -104,6 +107,7 @@
             android:id="@+id/ll_navi"
             android:layout_width="match_parent"
             android:layout_height="65dp"
+            android:onClick="@{() -> model.onMapClickListener(MapKindType.NAVI)}"
             android:orientation="horizontal">
 
             <ImageView

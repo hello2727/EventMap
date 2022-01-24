@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun collectFlows() {
-        lifecycleScope.launchWhenResumed {
+        lifecycleScope.launchWhenStarted {
             viewModel.selectedMap.collect {
                 // TODO : 지도 종류 변경시
             }
