@@ -2,6 +2,8 @@ package com.example.android.eventmap.di
 
 import android.content.Context
 import com.example.android.eventmap.MapApplication
+import com.example.android.eventmap.repository.remote.api.MainApi
+import com.example.android.eventmap.view.main.MainRepository
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
@@ -13,7 +15,9 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.File
 import java.util.concurrent.TimeUnit
+import javax.inject.Named
 import javax.inject.Singleton
 
 /**
@@ -67,6 +71,29 @@ class NetworkModule {
             it.proceed(requestBuilder.build())
         }
     }
+
+    @Singleton
+    @Provides
+    internal fun provideCache(context: Context): Cache {
+        val httpCacheDirectory = File(context.cacheDir.absolutePath, "HttpCache")
+        return Cache(httpCacheDirectory, CACHE_SIZE_BYTES)
+    }
+
+    @Singleton
+    @Provides
+    fun provideContext(application: MapApplication): Context {
+        return application.applicationContext
+    }
+
+    @Singleton
+    @Provides
+    fun provideMainApi(@Named("Main") retrofit: Retrofit): MainApi {
+        return retrofit.create(MainApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun providesRepository(api: MainApi) = MainRepository(api)
 
     companion object {
         private const val READ_TIMEOUT = 30
