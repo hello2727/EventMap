@@ -44,6 +44,7 @@
                 android:layout_marginStart="20dp"
                 android:gravity="center"
                 android:text="@string/map_basic"
+                android:textColor="@{model.selectedMap == MapKindType.BASIC ? @color/black : @color/gray80}"
                 android:textSize="18sp" />
         </LinearLayout>
 
@@ -66,12 +67,13 @@
                 tools:ignore="ContentDescription,UnusedAttribute" />
 
             <TextView
-                android:id="@+id/tv_hybrid"
+                android:id="@+id/tv_satellite"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="20dp"
                 android:gravity="center"
                 android:text="@string/map_hybrid"
+                android:textColor="@{model.selectedMap == MapKindType.SATELLITE ? @color/black : @color/gray80}"
                 android:textSize="18sp" />
         </LinearLayout>
 
@@ -100,6 +102,7 @@
                 android:layout_marginStart="20dp"
                 android:gravity="center"
                 android:text="@string/map_terrain"
+                android:textColor="@{model.selectedMap == MapKindType.TERRAIN ? @color/black : @color/gray80}"
                 android:textSize="18sp" />
         </LinearLayout>
 
@@ -128,6 +131,7 @@
                 android:layout_marginStart="20dp"
                 android:gravity="center"
                 android:text="@string/map_navi"
+                android:textColor="@{model.selectedMap == MapKindType.NAVI ? @color/black : @color/gray80}"
                 android:textSize="18sp" />
         </LinearLayout>
 
