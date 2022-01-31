@@ -1,7 +1,6 @@
 package com.example.android.eventmap.view.main
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -11,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.android.eventmap.R
 import com.example.android.eventmap.databinding.ActivityMainBinding
+import com.example.android.eventmap.util.extensions.toastMessage
 import com.example.android.eventmap.view.main.type.MapKindType
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.OnMapReadyCallback
@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     private val viewModel by viewModels<MainViewModel>()
 
     private var naverMap: NaverMap? = null
-    private var backPressedTime: Long = 0
+    private var backPressedTime: Long = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,8 +40,12 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         collectFlows()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        naverMap = null
+    }
+
     override fun onBackPressed() {
-        super.onBackPressed()
         closeNaviMapKindDrawable()
     }
 
@@ -82,20 +86,20 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-
     private fun closeNaviMapKindDrawable() {
-        val currentTime = System.currentTimeMillis()
-        val interval = currentTime - backPressedTime
         if (binding.mainDrawerLayout.isDrawerOpen(binding.navigationviewSetting)) {
             binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
-        } else {
-            if (interval in 0..2000) {
-                onBackPressed()
-            } else {
-                backPressedTime = currentTime;
+            return
+        }
 
-                Toast.makeText(this, R.string.one_press_back_button_toast, Toast.LENGTH_SHORT)
-                    .show();
+        val currentTime = System.currentTimeMillis()
+        when (currentTime - backPressedTime) {
+            in 0..2000 -> {
+                super.onBackPressed()
+            }
+            else -> {
+                backPressedTime = currentTime
+                toastMessage(R.string.one_press_back_button_toast)
             }
         }
     }
