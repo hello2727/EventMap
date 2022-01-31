@@ -57,11 +57,9 @@
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/navigationview_setting"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            app:headerLayout="@layout/navigationheader_setting" />
+        <include
+            android:id="@+id/layout_navigationheader_setting"
+            layout="@layout/navigationheader_setting"
+            app:model="@{model}" />
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

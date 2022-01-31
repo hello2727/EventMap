@@ -5,9 +5,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import com.example.android.eventmap.R
 import com.example.android.eventmap.databinding.ActivityMainBinding
 import com.example.android.eventmap.util.extensions.toastMessage
@@ -58,25 +56,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             viewModel.eventFlow.collect { event ->
                 handleEvent(event)
             }
-
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.selectedMap.collect {
-                    when (it) {
-                        MapKindType.BASIC -> {
-                            naverMap?.mapType = NaverMap.MapType.Basic
-                        }
-                        MapKindType.SATELLITE -> {
-                            naverMap?.mapType = NaverMap.MapType.Satellite
-                        }
-                        MapKindType.TERRAIN -> {
-                            naverMap?.mapType = NaverMap.MapType.Terrain
-                        }
-                        MapKindType.NAVI -> {
-                            naverMap?.mapType = NaverMap.MapType.Navi
-                        }
-                    }
-                }
-            }
         }
     }
 
@@ -84,10 +63,26 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         is MainViewModel.Event.MapSettingOpenEvent -> {
             binding.mainDrawerLayout.openDrawer(GravityCompat.START)
         }
+        is MainViewModel.Event.KindOfMapClickEvent -> {
+            when (event.kind) {
+                MapKindType.BASIC -> {
+                    naverMap?.mapType = NaverMap.MapType.Basic
+                }
+                MapKindType.SATELLITE -> {
+                    naverMap?.mapType = NaverMap.MapType.Satellite
+                }
+                MapKindType.TERRAIN -> {
+                    naverMap?.mapType = NaverMap.MapType.Terrain
+                }
+                MapKindType.NAVI -> {
+                    naverMap?.mapType = NaverMap.MapType.Navi
+                }
+            }
+        }
     }
 
     private fun closeNaviMapKindDrawable() {
-        if (binding.mainDrawerLayout.isDrawerOpen(binding.navigationviewSetting)) {
+        if (binding.mainDrawerLayout.isDrawerOpen(binding.layoutNavigationheaderSetting.navigationviewSetting)) {
             binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
             return
         }

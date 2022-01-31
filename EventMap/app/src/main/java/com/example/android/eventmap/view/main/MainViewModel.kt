@@ -31,7 +31,7 @@ class MainViewModel @Inject constructor(
     }
 
     fun onMapClickListener(map: MapKindType) {
-        _selectedMap.value = map
+        event(Event.KindOfMapClickEvent(map))
     }
 
 //    private val selectedMap = MediatorLiveData<Boolean>().apply {
@@ -55,5 +55,6 @@ class MainViewModel @Inject constructor(
 
     sealed class Event {
         object MapSettingOpenEvent : Event()
+        data class KindOfMapClickEvent(val kind: MapKindType) : Event()
     }
 }
