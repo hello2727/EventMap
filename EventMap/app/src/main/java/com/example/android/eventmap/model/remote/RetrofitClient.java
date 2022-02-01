@@ -1,6 +1,6 @@
-package com.example.android.eventmap.repository;
+package com.example.android.eventmap.model.remote;
 
-import com.example.android.eventmap.repository.remote.api.MainApi;
+import com.example.android.eventmap.model.remote.api.MainApi;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

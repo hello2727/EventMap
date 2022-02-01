@@ -2,7 +2,7 @@ package com.example.android.eventmap.di
 
 import android.content.Context
 import com.example.android.eventmap.MapApplication
-import com.example.android.eventmap.repository.remote.api.MainApi
+import com.example.android.eventmap.model.remote.api.MainApi
 import com.example.android.eventmap.view.main.MainRepository
 import com.google.gson.GsonBuilder
 import dagger.Module

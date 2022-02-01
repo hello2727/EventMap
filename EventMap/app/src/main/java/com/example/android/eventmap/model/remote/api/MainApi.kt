@@ -1,6 +1,6 @@
-package com.example.android.eventmap.repository.remote.api
+package com.example.android.eventmap.model.remote.api
 
-import com.example.android.eventmap.repository.remote.vo.EventVo
+import com.example.android.eventmap.model.remote.vo.EventVo
 import retrofit2.Call
 import retrofit2.http.GET
 

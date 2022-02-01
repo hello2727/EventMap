@@ -1,4 +1,4 @@
-package com.example.android.eventmap.repository;
+package com.example.android.eventmap.model.remote;
 
 import androidx.annotation.NonNull;
 

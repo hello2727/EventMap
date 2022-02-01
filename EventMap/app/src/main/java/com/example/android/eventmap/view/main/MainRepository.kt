@@ -1,6 +1,6 @@
 package com.example.android.eventmap.view.main
 
-import com.example.android.eventmap.repository.remote.api.MainApi
+import com.example.android.eventmap.model.remote.api.MainApi
 
 /**
  * Created by Jihye Noh

@@ -31,6 +31,7 @@ class MainViewModel @Inject constructor(
     }
 
     fun onMapClickListener(map: MapKindType) {
+        _selectedMap.value = map
         event(Event.KindOfMapClickEvent(map))
     }
 

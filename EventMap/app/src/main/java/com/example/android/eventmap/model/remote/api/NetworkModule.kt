@@ -1,4 +1,4 @@
-package com.example.android.eventmap.repository.remote.api
+package com.example.android.eventmap.model.remote.api
 
 /**
  * Created by Jihye Noh

@@ -10,6 +10,7 @@ import com.example.android.eventmap.R
 import com.example.android.eventmap.databinding.ActivityMainBinding
 import com.example.android.eventmap.util.extensions.toastMessage
 import com.example.android.eventmap.view.main.type.MapKindType
+import com.naver.maps.map.MapFragment
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.OnMapReadyCallback
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,12 +30,17 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     private val viewModel by viewModels<MainViewModel>()
 
     private var naverMap: NaverMap? = null
+    private var mapView = MapFragment()
     private var backPressedTime: Long = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.model = viewModel
+        binding.apply {
+            model = viewModel
+            lifecycleOwner = this@MainActivity
+        }
 
+        initNaverMapInstance()
         collectFlows()
     }
 
@@ -45,6 +51,10 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onBackPressed() {
         closeNaviMapKindDrawable()
+    }
+
+    private fun initNaverMapInstance() {
+        mapView.getMapAsync(this)
     }
 
     override fun onMapReady(map: NaverMap) {
