@@ -8,5 +8,12 @@ enum class MapKindType {
     BASIC,
     SATELLITE,
     TERRAIN,
-    NAVI
+    NAVI,
+
+    INDOOR,
+    TRAFFIC,
+    TRANSIT,
+    BICYCLE,
+    MOUNTAIN,
+    CADASTRAL
 }
