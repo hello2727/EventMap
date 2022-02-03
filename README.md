@@ -7,13 +7,13 @@
 * 
 * 주소: 
 
-개발환경
+개발환경(Used Tools)
 -----------------
-* Android Java Postman NaverMap_API SharedPreferences restAPI Retrofit2 GSON 클린코드(유지보수, 가독성에 초점)
+* Android | Language => Java Kotline | Postman | Map Sdk => NaverMap_API | restAPI => Retrofit2 GSON | clean Code | Clean Architecture | DI => Hilt Dagger | Coroutine Flow LiveData | LeakCanary | Log => Timber | Image Processing => Glide | View Binding => Data binding, View binding | 
 
 진행상황
 -----------------
-현재 open API를 제공하는 서버측의 JSON 처리 문제로 개발에 지연이 있는 상황입니다. 해결 후 다시 업로드하겠습니다. 
+현재 open API를 제공하는 서버측의 JSON 처리 문제로 개발에 지연이 있는 상황입니다. 
 
 결과물
 -----------------
