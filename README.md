@@ -9,7 +9,18 @@
 
 개발환경(Used Tools)
 -----------------
-* Android | Language => Java, Kotline | Postman | Map Sdk => NaverMap sdk | restAPI => Retrofit2, GSON | clean Code | Clean Architecture | DI => Hilt, Dagger | Coroutine, Flow, LiveData | LeakCanary | Log => Timber | Image Processing => Glide | View Binding => Data binding, View binding | 
+* Android
+* Language => Java, Kotline 
+* check rest api => Postman 
+* Sdk => NaverMap sdk
+* restAPI => Retrofit, GSON 
+* rule => clean Code | Clean Architecture 
+* DI => Hilt, Dagger 
+* Jetpack => Coroutine, Flow, LiveData 
+* Catching memory leak => LeakCanary 
+* Log => Timber 
+* Image Processing => Glide 
+* View Binding => Data binding, View binding  
 
 진행상황
 -----------------
